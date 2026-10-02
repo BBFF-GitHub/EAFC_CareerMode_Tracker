@@ -1,0 +1,71 @@
+<h1 class="header">All-Time Player Stats - Caps &amp; Goals</h1>
+<hr />
+
+<div *ngIf="loading" class="header">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+<div *ngIf="!loading">
+  <div class="atps-div">
+    <p-table [value]="players" [paginator]="true" [rows]="8" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="atps-table-cell-centre atps-table-player-header" colspan="2" rowspan="2" [pSortableColumn]="'name'">
+            Player
+            <p-sortIcon [field]="'name'"></p-sortIcon>
+            <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+          </th>
+          <th *ngIf="players.length > 0" class="atps-table-cell-centre atps-table-border atps-table-pos-cell"
+              rowspan="2" [pSortableColumn]="'posId'">
+            Position
+            <p-sortIcon [field]="'posId'"></p-sortIcon>
+            <p-columnFilter type="text" field="pos" display="menu"></p-columnFilter>
+          </th>
+          <ng-container *ngIf="players.length > 0">
+            <th *ngFor="let year of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]; let i = index" colspan="2"
+                class="atps-table-cell-centre atps-table-year-header lower-font">Year {{i + 1}}</th>
+          </ng-container>
+          <th class="atps-table-cell-centre atps-table-total-header lower-font" colspan="2">Total</th>
+        </tr>
+        <tr>
+          <ng-container *ngIf="players.length > 0">
+            <ng-container *ngFor="let year of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]; let i = index">
+              <th class="atps-table-cell-centre atps-table-stat-cell lower-font">
+                <img class="cap-img" src="./assets/cap.png" pTooltip="Caps" tooltipPosition="left" [escape]="false" />
+              </th>
+              <th class="atps-table-cell-centre atps-table-border atps-table-stat-cell lower-font">
+                <i class="fa-solid fa-futbol" pTooltip="Goals" tooltipPosition="right" [escape]="false"></i>
+              </th>
+            </ng-container>
+          </ng-container>
+          <th class="atps-table-cell-centre atps-table-total-cell lower-font" [pSortableColumn]="'totalCaps'">
+            <img class="cap-img" src="./assets/cap.png" pTooltip="Total Caps" tooltipPosition="left" [escape]="false" />
+            <p-sortIcon [field]="'totalCaps'"></p-sortIcon>
+          </th>
+          <th class="atps-table-cell-centre atps-table-total-cell lower-font" [pSortableColumn]="'totalGoals'">
+            <i class="fa-solid fa-futbol" pTooltip="Total Goals" tooltipPosition="right" [escape]="false"></i>
+            <p-sortIcon [field]="'totalGoals'"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-player>
+        <tr class="player-table-data">
+          <td class="atps-table-avatar-cell">
+            <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+          </td>
+          <td class="atps-table-player-cell">{{player.name}}</td>
+          <td class="atps-table-cell-centre atps-table-border atps-table-pos-cell">
+            <p-tag styleClass="mr-2" value="{{player.pos}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+          </td>
+          <ng-container *ngFor="let caps of player.caps; let i = index">
+            <td class="atps-table-cell-centre atps-table-stat-cell lower-font">{{(caps == 0 ? '-' : caps)}}</td>
+            <td class="atps-table-cell-centre atps-table-border atps-table-stat-cell lower-font">{{(caps == 0 ? '-' : player.goals[i])}}</td>
+          </ng-container>
+          <td class="atps-table-total-cell lower-font">{{player.totalCaps}}</td>
+          <td class="atps-table-total-cell lower-font">{{player.totalGoals}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

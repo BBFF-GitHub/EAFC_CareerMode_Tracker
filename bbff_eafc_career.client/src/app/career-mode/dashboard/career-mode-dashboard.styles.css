@@ -1,0 +1,161 @@
+.dashboard-tile {
+  margin-bottom: 0.5rem;
+}
+
+.header {
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.profit-loss-txt {
+  text-align: center;
+  font-size: 1.65rem;
+}
+
+.results-pie-text {
+  position: absolute;
+  display: inline;
+  margin-top: 30%;
+  text-align: center;
+  width: 97%;
+}
+
+.table-blank-cell {
+  width: 10%;
+}
+
+.table-icon-cell {
+  width: 10%;
+  text-align: center;
+}
+
+.table-icon-cell-img {
+  height: 1.5rem;
+}
+
+.team-dashboard-group {
+  display: block;
+}
+
+.team-dashboard-group-left {
+  width: 50%;
+  float: left;
+}
+
+.team-dashboard-group-right {
+  width: 50%;
+  float: right;
+}
+
+.team-dashboard-group-trio-1 {
+  width: 33%;
+  float: left;
+}
+
+.team-dashboard-group-trio-2 {
+  width: 33%;
+  float: right;
+}
+
+.team-dashboard-group-trio-3 {
+  width: 34%;
+  float: right;
+}
+
+.tile-chart {
+  margin-top: -0.5rem;
+}
+
+.tile-div-normal {
+  margin: 5px 5px 5px 5px;
+}
+
+.tile-fact {
+  margin-top: -0.5rem;
+}
+
+.tile-header {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.tile-table {
+  width: 100%;
+  margin-top: -0.5rem;
+}
+
+.top-5-cursor {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.top-5-cursor:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.top-5-table {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.top-5-table-index {
+  width: 15%;
+  text-align: center;
+}
+
+.top-5-table-player {
+  width: 55%;
+}
+
+.top-5-table-player-short {
+  width: 45%;
+}
+
+.top-5-table-stat {
+  width: 20%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.top-5-title {
+  width: 80%;
+  text-align: center;
+}
+
+.trophy-cabinet-div {
+  height: 7.5rem;
+}
+
+.trophy-cabinet-table-1 {
+  width: 46%;
+  margin-left: 2%;
+  margin-right: 2%;
+  float: left;
+}
+
+.trophy-cabinet-table-2 {
+  width: 46%;
+  margin-left: 2%;
+  margin-right: 2%;
+  float: right;
+}
+
+.trophy-cabinet-txt-cell {
+  width: 75%;
+}
+
+.trophy-cabinet-value-cell {
+  width: 25%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.year-cell {
+  width: 15%;
+}

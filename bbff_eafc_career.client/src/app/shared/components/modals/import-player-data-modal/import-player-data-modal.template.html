@@ -1,0 +1,16 @@
+<p class="current-count" *ngIf="currentCount !== undefined">Currently loaded: <b>{{currentCount}}</b> players</p>
+
+<p class="helper-text">Upload a fresh player export CSV (same Name,Photo,Nationality,Flag,Position,OGClub,Gender
+  format as the old EAFC_official_data.csv) to replace it - no rebuild needed.</p>
+
+<input type="file" accept=".csv" (change)="onFileSelected($event)" />
+
+<br />
+<br />
+
+<p-button type="button" label="Import" class="action-btn p-button-outlined" [disabled]="!selectedFile || loading" (click)="upload()"></p-button>
+
+<p-progressSpinner *ngIf="loading" [style]="{width: '32px', height: '32px', 'margin-left': '1rem'}" strokeWidth="6"></p-progressSpinner>
+
+<p-message *ngIf="errorMessage" severity="error" [text]="errorMessage" class="import-message"></p-message>
+<p-message *ngIf="importedCount !== undefined && !errorMessage" severity="success" text="Imported {{importedCount}} players." class="import-message"></p-message>

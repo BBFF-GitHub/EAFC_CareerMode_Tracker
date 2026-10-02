@@ -1,0 +1,108 @@
+<div *ngIf="fixture !== undefined" class="results-shell">
+
+  <!-- Team cards either side of the score -->
+  <div class="results-header-row">
+    <div class="results-team-card">
+      <div class="results-team-crest">
+        <img *ngIf="homeLogo" src="{{homeLogo}}" alt="{{homeTeam}}">
+      </div>
+      <div class="results-team-name">{{homeTeam}}</div>
+      <team-shirt [primary]="homePrimary" [secondary]="homeSecondary" [tertiary]="homeTertiary" [teamName]="homeTeam" [size]="44"></team-shirt>
+    </div>
+
+    <div class="results-score-div">
+      <p-inputnumber inputId="integeronly" styleClass="results-score-input" autocomplete="off" [(ngModel)]="homeScore" [min]="0" (onInput)="validateResults()"></p-inputnumber>
+      <span class="results-vs-label">VS</span>
+      <p-inputnumber inputId="integeronly" styleClass="results-score-input" autocomplete="off" [(ngModel)]="awayScore" [min]="0" (onInput)="validateResults()"></p-inputnumber>
+    </div>
+
+    <div class="results-team-card results-team-card-away">
+      <team-shirt [primary]="awayPrimary" [secondary]="awaySecondary" [tertiary]="awayTertiary" [teamName]="awayTeam" [size]="44"></team-shirt>
+      <div class="results-team-name">{{awayTeam}}</div>
+      <div class="results-team-crest">
+        <img *ngIf="awayLogo" src="{{awayLogo}}" alt="{{awayTeam}}">
+      </div>
+    </div>
+  </div>
+
+  <!-- Penalty tiebreaker, only on a draw -->
+  <div *ngIf="includePenalties && homeScore == awayScore" class="results-penalty-row">
+    <div class="field-checkbox">
+      <p-radioButton name="penaltyWin" value="Home" [(ngModel)]="penaltyWinner"></p-radioButton>
+      <label class="penalty-text">{{homeTeam}} wins on penalties</label>
+    </div>
+    <div class="field-checkbox">
+      <p-radioButton name="penaltyWin" value="Away" [(ngModel)]="penaltyWinner"></p-radioButton>
+      <label class="penalty-text">{{awayTeam}} wins on penalties</label>
+    </div>
+  </div>
+
+  <div class="results-divider"></div>
+
+  <!-- Player ratings - Starting XI grouped by position to match the formation's actual
+       shape (left), Substitutes as a permanent sidebar (right) - both always visible,
+       no toggle. -->
+  <div *ngIf="players !== undefined && players.length > 0" class="results-body-columns">
+
+    <div class="results-xi-section">
+      <div class="results-position-row" *ngFor="let row of formationRows">
+        <ng-container *ngFor="let code of row">
+          <div class="results-position-card" *ngFor="let p of getPlayersForPosition(code)">
+            <div class="results-position-header {{positionColours[code]}}">{{code}}</div>
+            <div class="results-position-body">
+              <p-select class="result-player-dropdown" [options]="p.options" [filter]="true" [(ngModel)]="p.player" optionLabel="player" [appendTo]="'body'" (onChange)="validateResults()"></p-select>
+              <div class="results-position-stats">
+                <div class="results-position-stat">
+                  <div class="results-position-stat-label">Goals</div>
+                  <p-inputnumber styleClass="result-player-number" inputId="integeronly" autocomplete="off" [(ngModel)]="p.goals" [min]="0" (onChange)="validateResults()"></p-inputnumber>
+                </div>
+                <div class="results-position-stat">
+                  <div class="results-position-stat-label">Rating</div>
+                  <p-inputnumber styleClass="result-player-number" mode="decimal" autocomplete="off" [min]="0" [max]="10" [minFractionDigits]="0" [maxFractionDigits]="1" [(ngModel)]="p.rating"
+                                 (onChange)="validateResults()"></p-inputnumber>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="results-subs-divider"></div>
+
+    <div class="results-subs-sidebar">
+      <div class="results-subs-label">Substitutes</div>
+      <div class="results-subs-scroll">
+        <ng-container *ngFor="let p of players; let i = index">
+          <div *ngIf="p.deleteable" class="results-position-card">
+            <div class="results-position-header sub-card-header">
+              <span>SUB</span>
+              <i class="fa-solid fa-trash" (click)="removeSub(i)"></i>
+            </div>
+            <div class="results-position-body">
+              <p-select class="result-player-dropdown" [options]="p.options" [filter]="true" [(ngModel)]="p.player" optionLabel="player" [appendTo]="'body'" (onChange)="validateResults()"></p-select>
+              <div class="results-position-stats">
+                <div class="results-position-stat">
+                  <div class="results-position-stat-label">Goals</div>
+                  <p-inputnumber styleClass="result-player-number" inputId="integeronly" autocomplete="off" [(ngModel)]="p.goals" [min]="0" (onChange)="validateResults()"></p-inputnumber>
+                </div>
+                <div class="results-position-stat">
+                  <div class="results-position-stat-label">Rating</div>
+                  <p-inputnumber styleClass="result-player-number" mode="decimal" autocomplete="off" [min]="0" [max]="10" [minFractionDigits]="0" [maxFractionDigits]="1" [(ngModel)]="p.rating"
+                                 (onChange)="validateResults()"></p-inputnumber>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="results-divider"></div>
+<div class="results-footer-row">
+  <p-button type="button" label="Save Results" class="action-btn p-button-outlined" [disabled]="!validResults"
+          (click)="saveResults()"></p-button>
+  <span class="results-invalid-text">{{invalidReasons}}</span>
+</div>

@@ -1,0 +1,26 @@
+.country-flag-img {
+  height: 2rem;
+}
+
+.cup-name-cell {
+  width: 40%;
+}
+
+.cup-type-cell {
+  width: 25%;
+}
+
+.cup-wins-cell {
+  text-align: center !important;
+  font-weight: bold !important;
+  width: 25%;
+}
+
+.cup-wins-header {
+  text-align: center !important;
+  width: 25%;
+}
+
+.img-cell {
+  width: 10%;
+}

@@ -1,0 +1,83 @@
+.wizard-steps {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.wizard-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.wizard-step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.step-done {
+  background: #06421F;
+  color: #FFFFFF;
+}
+
+.step-current {
+  background: #06421F;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 4px #E8F3EC;
+}
+
+.step-upcoming {
+  background: #FFFFFF;
+  border: 2px solid #DCDACF;
+  color: #9A9689;
+}
+
+.wizard-step-line {
+  flex: 1;
+  height: 2px;
+  margin-top: 18px;
+}
+
+.line-done {
+  background: #06421F;
+}
+
+.line-upcoming {
+  background: #DCDACF;
+}
+
+.wizard-step-label {
+  font-size: 11px;
+  margin-top: 8px;
+  text-align: center;
+  color: #5B655F;
+}
+
+.wizard-step-label-current {
+  color: #14201A;
+  font-weight: 600;
+}
+
+:host-context(.app-dark) .step-upcoming {
+  background:#14171A !important;
+  border-color:#3A423C !important;
+  color:#6B756E !important;
+}
+
+:host-context(.app-dark) .wizard-step-label {
+  color:#9AA39C !important;
+}
+
+:host-context(.app-dark) .wizard-step-label-current {
+  color:#EDEFEC !important;
+}

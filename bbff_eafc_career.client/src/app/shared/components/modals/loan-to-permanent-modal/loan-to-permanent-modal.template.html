@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="row">
+      <div *ngIf="loadingTeams" style="text-align: center; height: 180px;">
+        <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+        <b style="margin-top: 0.4rem; margin-left: 2rem; font-size: 3.5rem;">Finding teams...</b>
+      </div>
+      <ng-container *ngIf="!loadingTeams">
+        <div class="row" style="margin-bottom: 0.5rem;">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <label class="remove-player-label">Date of Transfer</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <p-datepicker [(ngModel)]="transferDate" dateFormat="dd/mm/yy"></p-datepicker>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 3rem;">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <label class="remove-player-label">From Club</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <p-select class="remove-player-field" [options]="allClubs" [(ngModel)]="fromClub" [filter]="true" optionLabel="teamCountryCombo"></p-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <label style="font-weight: bold; margin-right: 0.2rem;">Amount: </label>
+            <ng-container *ngIf="fromClub !== undefined && fromClub.id !== undefined && fromClub.id > 0">
+              {{currency}}
+              <p-inputnumber class="remove-player-amount" inputId="integeronly" [(ngModel)]="transferAmount"></p-inputnumber>
+              <i class="fa-solid fa-circle-info" style="margin-left: 0.2rem;" pTooltip="Enter full amount of transfer fee" tooltipPosition="right"></i>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <td style="margin-left: auto; margin-right: auto; display: block">
+      <img src="{{bigPhoto}}" alt="{{player.player}}" />
+    </td>
+  </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<hr />
+<p-button type="button" label="Make Move Permanent" class="p-button" (click)="makePlayerPermanent()"></p-button>

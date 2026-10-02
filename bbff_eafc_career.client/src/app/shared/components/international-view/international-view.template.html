@@ -1,0 +1,422 @@
+<div *ngIf="loading" class="header">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+
+<div *ngIf="!loading">
+  <div class="row current-season-padding">
+    <div class="current-season-header-strip">
+
+      <img *ngIf="internationalObj.team != null" class="header-crest" src="{{countryImg}}" alt="{{internationalObj.team}}">
+
+      <div *ngIf="internationalObj.team != null" class="header-team-name">{{internationalObj.team}}</div>
+      <div *ngIf="internationalObj.team != null" class="header-league-year">International</div>
+      <div *ngIf="internationalObj.team == null" class="header-team-name">International View</div>
+
+      <team-shirt *ngIf="internationalObj.team != null" [primary]="internationalObj.primaryColour" [secondary]="internationalObj.secondaryColour"
+                  [tertiary]="internationalObj.tertiaryColour" [teamName]="internationalObj.team" [size]="30"></team-shirt>
+
+      <div class="header-spacer"></div>
+
+      <i *ngIf="fromOverview" class="pi pi-arrow-circle-left header-icon-btn" pTooltip="Go back to Overview page" tooltipPosition="bottom"
+         (click)="backToHistory()"></i>
+
+      <ng-container *ngIf="!fromOverview">
+        <i class="pi pi-arrow-right-arrow-left header-icon-btn" pTooltip="Switch to Club view" tooltipPosition="bottom"
+           (click)="switchToClubView()"></i>
+        <i *ngIf="internationalObj.team != null" class="pi pi-sign-out header-icon-btn header-icon-danger" pTooltip="Resign from international job"
+           tooltipPosition="bottom" (click)="resignJob()"></i>
+      </ng-container>
+
+      <div class="header-divider"></div>
+
+      <span *ngIf="!pendingChanges" class="header-save-label">All changes saved</span>
+      <span *ngIf="pendingChanges && !saving" class="header-save-label">Unsaved changes</span>
+      <i *ngIf="pendingChanges && !saving" class="pi pi-save header-icon-btn header-icon-save" pTooltip="Save changes" tooltipPosition="bottom"
+         (click)="save()"></i>
+      <p-progressSpinner *ngIf="pendingChanges && saving" [style]="{width: '22px', height: '22px'}" strokeWidth="6"></p-progressSpinner>
+    </div>
+  </div>
+
+  <!-- No international team currently being managed -->
+  <div *ngIf="internationalObj.team == null" class="row">
+    <div class="card country-select-div">
+      <div class="wizard-stage">
+        <h2 class="wizard-title">Select a country to manage</h2>
+
+        <div class="picker-row">
+          <button type="button" class="picker-arrow" aria-label="Previous country" (click)="moveCountry(-1)">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+          <div class="picker-card">
+            <img *ngIf="selectedCountry !== undefined && selectedCountry.country != null" class="picker-flag"
+                 src="./assets/logos/international/{{getCountryImage()}}.png" alt="{{selectedCountry.country}}">
+            <div *ngIf="selectedCountry !== undefined" class="picker-team-name">{{selectedCountry.country}}</div>
+          </div>
+
+          <button type="button" class="picker-arrow" aria-label="Next country" (click)="moveCountry(1)">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <p-select class="picker-select" [options]="countries" [(ngModel)]="selectedCountry" [filter]="true" optionLabel="country"></p-select>
+
+        <div class="wizard-actions">
+          <button type="button" class="wizard-btn wizard-btn-secondary" (click)="randomCountry()">Random</button>
+          <div class="wizard-actions-right">
+            <button type="button" class="wizard-btn wizard-btn-primary" [disabled]="selectedCountry == undefined" (click)="confirmCountry()">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- International team currently being managed -->
+  <div *ngIf="internationalObj.team != null" class="row">
+    <div class="card current-roster-div">
+      <div class="col flex align-items-center justify-content-center">
+        <div class="row formation-header-div">
+          <div class="row">
+            <div class="formation-header">
+              <h3>Current National Selection View</h3>
+            </div>
+            <div class="formation-dropdown-div">
+              <b class="formation-dropdown">Formation:</b>
+              <ng-container *ngIf="fromOverview">
+                <span class="formation-dropdown">{{internationalObj.formation}}</span>
+              </ng-container>
+              <ng-container *ngIf="!fromOverview">
+                <p-select [options]="formations" [(ngModel)]="internationalObj.formation" [filter]="true"
+                            (onChange)="pendingChanges = true; setPositionsList()"></p-select>
+              </ng-container>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <hr />
+          <div class="row squad-visual">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <!-- GK list -->
+              <p-table [value]="currentSquadGKs" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                  <tr class="smaller-text">
+                    <th colspan="3" class="current-roster-position-header">
+                      <i *ngIf="!fromOverview" class="pi pi-plus-circle action-icon" pTooltip="Add new player" tooltipPosition="left" (click)="addNewPlayer()"></i>
+                      Goalkeepers
+                    </th>
+                    <th class="current-roster-position-cell">Position</th>
+                    <th class="current-roster-club-cell">Current Club</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-player>
+                  <tr class="smaller-text">
+                    <td class="current-roster-avatar-cell" colspan="2">
+                      <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                    </td>
+                    <td class="current-roster-player-cell">{{player.player}}</td>
+                    <td class="current-roster-position-cell">
+                      <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+                    </td>
+                    <td class="current-roster-club-cell">{{player.currentClub}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+              <!-- DF list -->
+              <p-table [value]="currentSquadDFs" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                  <tr class="smaller-text">
+                    <th colspan="3" class="current-roster-position-header">
+                      <i *ngIf="!fromOverview" class="pi pi-plus-circle action-icon" pTooltip="Add new player" tooltipPosition="left" (click)="addNewPlayer()"></i>
+                      Defenders
+                    </th>
+                    <th class="current-roster-position-cell">Position</th>
+                    <th class="current-roster-club-cell">Current Club</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-player>
+                  <tr class="smaller-text">
+                    <td class="current-roster-avatar-cell" colspan="2">
+                      <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                    </td>
+                    <td class="current-roster-player-cell">{{player.player}}</td>
+                    <td class="current-roster-position-cell">
+                      <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+                    </td>
+                    <td class="current-roster-club-cell">{{player.currentClub}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+              <!-- MF list -->
+              <p-table [value]="currentSquadMFs" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                  <tr class="smaller-text">
+                    <th colspan="3" class="current-roster-position-header">
+                      <i *ngIf="!fromOverview" class="pi pi-plus-circle action-icon" pTooltip="Add new player" tooltipPosition="left" (click)="addNewPlayer()"></i>
+                      Midfielders
+                    </th>
+                    <th class="current-roster-position-cell">Position</th>
+                    <th class="current-roster-club-cell">Current Club</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-player>
+                  <tr class="smaller-text">
+                    <td class="current-roster-avatar-cell" colspan="2">
+                      <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                    </td>
+                    <td class="current-roster-player-cell">{{player.player}}</td>
+                    <td class="current-roster-position-cell">
+                      <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+                    </td>
+                    <td class="current-roster-club-cell">{{player.currentClub}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+              <!-- ST list -->
+              <p-table [value]="currentSquadSTs" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                  <tr class="smaller-text">
+                    <th colspan="3" class="current-roster-position-header">
+                      <i *ngIf="!fromOverview" class="pi pi-plus-circle action-icon" pTooltip="Add new player" tooltipPosition="left" (click)="addNewPlayer()"></i>
+                      Strikers
+                    </th>
+                    <th class="current-roster-position-cell">Position</th>
+                    <th class="current-roster-club-cell">Current Club</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-player>
+                  <tr class="smaller-text">
+                    <td class="current-roster-avatar-cell" colspan="2">
+                      <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                    </td>
+                    <td class="current-roster-player-cell">{{player.player}}</td>
+                    <td class="current-roster-position-cell">
+                      <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+                    </td>
+                    <td class="current-roster-club-cell">{{player.currentClub}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rest-of-page-div">
+      <div class="col flex align-items-center justify-content-center">
+        <div class="row">
+          <p-tabs [value]="activeTabIndex" (valueChange)="changeTab($event)">
+            <p-tablist>
+              <p-tab [value]="0">Squad List View</p-tab>
+              <p-tab [value]="1">Stats View</p-tab>
+              <p-tab [value]="2">Fixtures List View</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel [value]="0">
+                <p-contextMenu #cm [model]="menuItems" (onShow)="populateMenuListForPlayer()" (onHide)="populateFullMenuList()"></p-contextMenu>
+                <div class="squad-list-view-div" #squadListDiv>
+                  <p-table [value]="internationalObj.squad" [paginator]="true" [rows]="squadListRows" [(contextMenuSelection)]="selectedPlayer"
+                           [contextMenu]="fromOverview ? null : cm" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                      <tr class="smaller-text">
+                        <th colspan="3" class="squad-list-player-header">
+                          <i *ngIf="!fromOverview" class="pi pi-plus-circle action-icon" pTooltip="Add new player"
+                             tooltipPosition="left" (click)="addNewPlayer()"></i>
+                          Player
+                          <i *ngIf=!fromOverview class="fa-solid fa-circle-info info-icon" pTooltip="Right-click on a player to perform actions"
+                             tooltipPosition="right"></i>
+                        </th>
+                        <th colspan="2" class="squad-list-status-header"></th>
+                        <th class="squad-list-tag-cell">Position</th>
+                        <th class="squad-list-stat-cell">Call-Ups</th>
+                        <th class="squad-list-stat-cell">Caps</th>
+                        <th class="squad-list-stat-cell">Goals</th>
+                        <th class="squad-list-stat-cell">Rating</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-player>
+                      <tr class="smaller-text" [style.backgroundColor]="selectedPlayer == player && menuShowing ? '#EEEEEE' : '#FFFFFF'"
+                          [pContextMenuRow]="player">
+                        <td class="squad-list-avatar-cell" colspan="2">
+                          <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                        </td>
+                        <td class="squad-list-player-cell">{{player.player}}</td>
+                        <td class="squad-list-status-cell">
+                          <p-tag *ngIf="player.inCurrentSquad" styleClass="mr-2" icon="pi pi-star-fill" severity="info" pTooltip="In Current Squad"
+                                 tooltipPosition="left"></p-tag>
+                        </td>
+                        <td class="squad-list-status-cell">
+                          <span *ngIf="player.currentClub && player.currentClub.length > 0 && player.currentClubImgPath && player.currentClubImgPath.length > 0">
+                            <img class="logo-img" src="{{player.currentClubImgPath}}" alt="{{player.currentClub}}">
+                          </span>
+                        </td>
+                        <td class="squad-list-tag-cell">
+                          <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+                        </td>
+                        <td class="squad-list-stat-cell">{{player.callUps}}</td>
+                        <td class="squad-list-stat-cell">{{player.caps}}</td>
+                        <td class="squad-list-stat-cell">{{player.goals}}</td>
+                        <td class="squad-list-stat-cell">
+                          <span *ngIf="player.ratingDisplay == undefined || player.ratingDisplay == 0">-</span>
+                          <span *ngIf="player.ratingDisplay !== undefined && player.ratingDisplay > 0">{{player.ratingDisplay}}</span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel [value]="1">
+                <div class="row">
+                  <div class="stats-view-div">
+                    <p-table [value]="internationalObj.cups" styleClass="p-datatable-sm">
+                      <ng-template pTemplate="header">
+                        <tr class="smaller-text">
+                          <th colspan="2" class="header">Cup Progress</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-cup>
+                        <tr class="smaller-text">
+                          <td class="cup-name-cell">{{cup.cupName}}</td>
+                          <td *ngIf="fromOverview" class="cup-progress-cell">
+                            {{cup.cupProgress}}
+                          </td>
+                          <td *ngIf="!fromOverview" class="cup-progress-cell">
+                            <input *ngIf="cup.out !== undefined && cup.out" type="text" pInputText [(ngModel)]="cup.cupProgress"
+                                   (keyup)="setPendingChanges('cup')" />
+                            <span *ngIf="cup.out == undefined || !cup.out">{{cup.cupProgress}}</span>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                    <ng-container *ngIf="topScorers.length > 0">
+                      <hr />
+                      <p-table [value]="topScorers" styleClass="p-datatable-sm">
+                        <ng-template pTemplate="header">
+                          <tr class="smaller-text">
+                            <th colspan="3" class="header">Top Scorers</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-player let-i="rowIndex">
+                          <tr class="smaller-text">
+                            <td class="top-scorer-index-cell">#{{i + 1}}</td>
+                            <td class="top-scorer-player-cell">{{player.player}}</td>
+                            <td class="top-scorer-goals-cell">{{player.goals}}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </ng-container>
+                  </div>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel [value]="2">
+                <div class="fixtures-list-div">
+                  <p-table [value]="internationalObj.fixtures" styleClass="p-datatable-sm" (onRowReorder)="reorderFixtures()">
+                    <ng-template pTemplate="header">
+                      <tr class="smaller-text">
+                        <th class="fixtures-list-header">
+                          <i *ngIf="!fromOverview" class="pi pi-plus-circle add-fixture-btn smaller-text" pTooltip="Add new fixture" (click)="addFixture()"></i>
+                        </th>
+                        <th class="fixtures-list-header">#</th>
+                        <th class="fixtures-list-competition-cell">Competition</th>
+                        <th class="fixtures-list-venue-cell">Venue</th>
+                        <th class="fixtures-list-vs-cell">vs</th>
+                        <th colspan="3" class="fixtures-list-results-cell">Result</th>
+                        <th class="fixtures-list-scores-cell">Scorers</th>
+                        <th></th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-fixture let-index="rowIndex">
+                      <tr [pReorderableRow]="index" class="smaller-text fixtures-list-table-data">
+                        <td class="fixtures-list-move-cell">
+                          <i *ngIf="(fixture.result == undefined || fixture.result.length == 0) && !fixture.remove" pReorderableRowHandle
+                             class="pi pi-arrows-alt move-btn"></i>
+                        </td>
+                        <td class="fixtures-list-cell">{{index + 1}}</td>
+                        <td class="fixtures-list-competition-cell">
+                          <select *ngIf="fixture.added" class="fixture-select-dropdown" [(ngModel)]="fixture.competition" (change)="editFixture(fixture)">
+                            <option *ngFor="let c of fixture.competitions" [ngValue]="c">{{c}}</option>
+                          </select>
+                          <span *ngIf="!fixture.added">{{fixture.competition}}</span>
+                        </td>
+                        <td class="fixtures-list-venue-cell">
+                          <select *ngIf="fixture.result == undefined || fixture.result.length == 0" class="fixture-select-dropdown" [(ngModel)]="fixture.venue"
+                                  (change)="editFixture(fixture)">
+                            <option *ngFor="let v of venues" [ngValue]="v">{{v}}</option>
+                          </select>
+                          <span *ngIf="fixture.result != undefined && fixture.result.length > 0">{{fixture.venue}}</span>
+                        </td>
+                        <td class="fixtures-list-vs-cell">
+                          <p-select *ngIf="fixture.result == undefined || fixture.result.length == 0" class="fixture-dropdown"
+                                    [options]="fixture.teams" [(ngModel)]="fixture.versusTeamObj" [filter]="true" optionLabel="team"
+                                    (onChange)="checkVersusTeam(fixture)"></p-select>
+                          <span *ngIf="fixture.result != undefined && fixture.result.length > 0">{{fixture.versusTeam}}</span>
+                        </td>
+                        <ng-container *ngIf="(fixture.result == undefined || fixture.result.length == 0) && fixture.showBin">
+                          <td class="fixtures-list-scores-cell">
+                            <i *ngIf="!fixture.playGame" class="fa-solid fa-gamepad not-playable-game" pTooltip="Click to set game as Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                            <i *ngIf="fixture.playGame" class="fa-solid fa-gamepad playable-game" pTooltip="Click to unset game from Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                          </td>
+                          <td class="generate-results-cell" colspan="2">
+                            <span *ngIf="fixture.versusTeam == undefined || fixture.versusTeam.length == 0 || nextGameIndex != fixture.id">-</span>
+                            <span *ngIf="fixture.versusTeam != undefined && fixture.versusTeam.length > 0 && nextGameIndex == fixture.id"
+                                  class="generate-results-cursor" (click)="generateResults(fixture)">Generate Results</span>
+                          </td>
+                          <td class="fixtures-list-venue-cell">
+                            <i class="fa-solid fa-trash delete-fixture-btn" pTooltip="Click to delete the fixture" tooltipPosition="right"
+                               (click)="removeFixture(fixture)"></i>
+                          </td>
+                        </ng-container>
+                        <ng-container *ngIf="(fixture.result == undefined || fixture.result.length == 0) && !fixture.showBin">
+                          <td class="fixtures-list-scores-cell">
+                            <i *ngIf="!fixture.playGame" class="fa-solid fa-gamepad not-playable-game" pTooltip="Click to set game as Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                            <i *ngIf="fixture.playGame" class="fa-solid fa-gamepad playable-game" pTooltip="Click to unset game from Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                          </td>
+                          <td class="generate-results-cell-again" colspan="3">
+                            <span *ngIf="fixture.versusTeam == undefined || fixture.versusTeam.length == 0 || nextGameIndex != fixture.id">-</span>
+                            <span *ngIf="fixture.versusTeam != undefined && fixture.versusTeam.length > 0 && nextGameIndex == fixture.id"
+                                  class="generate-results-cursor" (click)="generateResults(fixture)">Generate Results</span>
+                          </td>
+                        </ng-container>
+                        <ng-container *ngIf="fixture.result != undefined && fixture.result.length > 0">
+                          <td class="fixtures-list-scores-cell">{{fixture.result}}</td>
+                          <td class="fixtures-list-scores-cell">{{fixture.ourScore}}</td>
+                          <td class="fixtures-list-scores-cell">{{fixture.versusScore}}</td>
+                          <td class="fixtures-list-scores-cell">
+                            <i *ngIf="fixture.scorers.length > 0" class="fa-solid fa-futbol" pTooltip="{{getScorers(fixture)}}" tooltipPosition="left" [escape]="false"></i>
+                          </td>
+                        </ng-container>
+                        <td></td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="{{modalHeader}}" [(visible)]="showModal" [modal]="true"
+          [style]="{width: modalMode == 'change-position-modal' ? '65vw' : (modalMode == 'generate-result-modal' ? '80vw' : '50vw'), 'max-height': modalMode == 'generate-result-modal' ? '95%' : (modalMode == 'change-position-modal' ? '85vh' : '90%')}"
+          [draggable]="false" [resizable]="false">
+  <add-new-player-modal *ngIf="modalMode == 'add-new-player-modal'" [setting]="modalParam" [order]="modalOrder" [international]="true" [positions]="positions"
+                        (savePlayerEmit)="confirmNewPlayer($event)"></add-new-player-modal>
+  <change-club-modal *ngIf="modalMode == 'change-club-modal'" [playerToChange]="modalParam" (changePlayerEmit)="confirmClubChange($event)"></change-club-modal>
+  <change-position-modal *ngIf="modalMode == 'change-position-modal'" [playerToChange]="modalParam" [positions]="positions"
+                         (changePlayerEmit)="confirmPosChange($event)"></change-position-modal>
+  <generate-result-modal *ngIf="modalMode == 'generate-result-modal'" [fixtureInit]="modalParam" [squad]="internationalObj.squad"
+                         [formation]="internationalObj.formation ?? ''" [ourTeam]="internationalObj.team" [ourTeamCss]="internationalObj.teamCSSStyles ?? ''"
+                         [international]="true" (resultEmit)="confirmResult($event)"></generate-result-modal>
+</p-dialog>

@@ -1,0 +1,140 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <label class="new-player-label">Player Name</label>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <input class="new-player-textbox" [class.ng-invalid]="!validName" [class.ng-dirty]="!validName" type="text" pInputText
+           [(ngModel)]="newPlayer.player" (keyup)="validateName()" />
+    <small *ngIf="!validName" class="p-error block">Player Name is not valid! Please change...</small>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label class="new-player-label">Player Position</label>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <p-select [options]="positions" [(ngModel)]="newPlayer.position"></p-select>
+      </div>
+    </div>
+    <br />
+    <!-- Status, only for club view -->
+    <div *ngIf="!international" class="row">
+      <label class="label-title">Status</label>
+      <div *ngFor="let status of statuses" class="field-checkbox">
+        <p-radioButton [value]="status" [(ngModel)]="selectedStatus" [disabled]="status.disabled" (onClick)="changeStatus()"></p-radioButton>
+        <label class="label-txt">{{status.status}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="row">
+      <div *ngIf="loadingPic" class="player-img-div">
+        <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+        <b class="loading-txt">Finding images...</b>
+      </div>
+      <div *ngIf="!loadingPic && (playerImages == undefined || playerImages.length == 0)" class="player-img-div">
+        <img class="player-big-img" src="./assets/players/unknown.png" />
+      </div>
+      <div *ngIf="!loadingPic && searchAttempted && (playerImages == undefined || playerImages.length == 0)" class="not-found-div">
+        <p *ngIf="!addedToDb" class="not-found-text">Not found in the Player Database.</p>
+        <p-button *ngIf="!showAddToDbForm && !addedToDb" type="button" label="Add to Player Database" class="add-to-db-btn p-button-outlined"
+                (click)="showAddToDbForm = true"></p-button>
+        <p *ngIf="addedToDb" class="added-to-db-text">Added to the Player Database.</p>
+
+        <div *ngIf="showAddToDbForm" class="add-to-db-form">
+          <input type="text" pInputText placeholder="Photo URL" [(ngModel)]="addToDbPhoto" class="add-to-db-input" />
+          <input type="text" pInputText placeholder="Flag URL" [(ngModel)]="addToDbFlag" class="add-to-db-input" />
+          <input type="text" pInputText placeholder="Nationality" [(ngModel)]="addToDbNationality" class="add-to-db-input" />
+          <input type="text" pInputText placeholder="Real-world club" [(ngModel)]="addToDbOgClub" class="add-to-db-input" />
+          <div class="add-to-db-gender">
+            <p-radioButton name="addToDbGender" value="M" [(ngModel)]="addToDbGender" inputId="genderM"></p-radioButton>
+            <label for="genderM">Male</label>
+            <p-radioButton name="addToDbGender" value="F" [(ngModel)]="addToDbGender" inputId="genderF"></p-radioButton>
+            <label for="genderF">Female</label>
+          </div>
+          <p-button type="button" label="Save to Database" class="add-to-db-btn p-button-outlined" (click)="saveToPlayerDatabase()"></p-button>
+        </div>
+      </div>
+      <div *ngIf="!loadingPic && playerImages != undefined && playerImages.length == 1" class="player-img-div">
+        <img class="player-big-img" src="{{playerImages[0].photoBig}}" alt="{{playerImages[0].name}}" />
+      </div>
+      <div *ngIf="!loadingPic && playerImages != undefined && playerImages.length > 1" class="player-img-div">
+        <table class="player-img-table">
+          <tr>
+            <td class="player-img-move" rowspan="2">
+              <span style="cursor: pointer;" (click)="moveImage(-1)"><</span>
+            </td>
+            <td class="player-img-cell">
+              <img class="player-big-img" src="{{playerImages[selectedPhotoIndex].photoBig}}" alt="{{playerImages[selectedPhotoIndex].name}}" />
+            </td>
+            <td class="player-img-move" rowspan="2">
+              <span style="cursor: pointer;" (click)="moveImage(1)">></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p-button type="button" label="Find Player Image" class="pic-btn p-button-outlined" [disabled]="!validName || loadingPic"
+              (click)="findPlayerImage()"></p-button>
+    </div>
+  </div>
+</div>
+<br />
+
+<!-- Transfer status, only for club view -->
+<div *ngIf="!international" class="row transfer-div">
+  <div class="col-lg-2 col-md-2 col-sm-2">
+    <b>Transferred In</b>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <p-toggleswitch [(ngModel)]="transferredIn" (onChange)="getTransferDetails()"></p-toggleswitch>
+  </div>
+</div>
+<div *ngIf="transferredIn" class="row">
+  <div *ngIf="loadingTeams" class="loading-teams-div">
+    <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+    <b class="loading-txt">Finding teams...</b>
+  </div>
+  <ng-container *ngIf="!loadingTeams">
+    <div *ngIf="!preContract" class="row transfer-div">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label class="new-player-label">Date of Transfer</label>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <p-datepicker [(ngModel)]="transferDate" dateFormat="dd/mm/yy"></p-datepicker>
+      </div>
+    </div>
+    <div class="row transfer-div">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label class="new-player-label">From Club</label>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <p-select [options]="allClubs" [(ngModel)]="fromClub" [filter]="true" optionLabel="teamCountryCombo"></p-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label class="label-title">Transfer Type</label>
+        <div *ngFor="let type of transferTypes" class="field-checkbox">
+          <p-radioButton [value]="type" [(ngModel)]="selectedType" [disabled]="type.disabled" (onClick)="changeType()"></p-radioButton>
+          <label class="label-txt">{{type.type}}</label>
+        </div>
+      </div>
+      <div *ngIf="selectedType !== undefined && selectedType.type == 'Permanent'" class="col-lg-8 col-md-8 col-sm-8 transfer-amount-div">
+        <label class="transfer-amount-title">Amount: </label>
+        <ng-container *ngIf="fromClub !== undefined && fromClub.id !== undefined && fromClub.id > 0">
+          {{currency}}
+          <p-inputnumber class="add-player-amount" inputId="integeronly" [(ngModel)]="transferAmount"></p-inputnumber>
+          <i class="fa-solid fa-circle-info transfer-amount-icon info-btn" pTooltip="Enter full amount of transfer fee" tooltipPosition="right"></i>
+        </ng-container>
+        <ng-container *ngIf="fromClub !== undefined && fromClub.id !== undefined && fromClub.id == 0">{{currency}}0</ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<hr />
+<p-button type="button" label="Save New Player" class="action-btn p-button-outlined" [disabled]="!validName"
+        (click)="saveNewPlayer()"></p-button>

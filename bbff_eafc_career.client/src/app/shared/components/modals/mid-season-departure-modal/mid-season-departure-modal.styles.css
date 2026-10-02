@@ -1,0 +1,29 @@
+.header {
+  text-align: center;
+}
+
+.reason-btn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-button.p-button-outlined {
+  background-color: #07F468;
+  color: #000000 !important;
+}
+
+.p-button.p-button-outlined:hover {
+  background-color: #06421f;
+  color: #000000 !important;
+}
+
+.reason-btn {
+  display: block;
+  width: 100%;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+}

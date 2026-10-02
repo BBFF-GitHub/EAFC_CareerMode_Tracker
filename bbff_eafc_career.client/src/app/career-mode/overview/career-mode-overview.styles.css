@@ -1,0 +1,65 @@
+.cmo-table-border {
+  border-right: 1px solid #dee2e6 !important;
+}
+
+.cmo-table-cell-centre {
+  text-align: center !important;
+}
+
+.fa-circle-info {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.fa-circle-info:hover, icon-cursor:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.first-place {
+  color: gold;
+}
+
+.header {
+  text-align: center;
+}
+
+.icon-cursor {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.second-place {
+  color: silver;
+}
+
+.third-place {
+  color: #cd7f32;
+}
+
+.overview-data-table {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.overview-team-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.overview-team-crest {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.overview-team-name {
+  white-space: nowrap;
+}

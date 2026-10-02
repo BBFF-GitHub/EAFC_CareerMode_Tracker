@@ -1,0 +1,55 @@
+a.navbar-brand {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  max-width: 60vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+a.eafc-nav-theme {
+  cursor: default;
+}
+
+.nav-link {
+  transition: color 0.2s ease, border-color 0.2s ease;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.2rem;
+}
+
+a.nav-link:hover {
+  color: #07F468 !important;
+  cursor: pointer;
+}
+
+.nav-item.link-active .nav-link {
+  color: #07F468 !important;
+  border-bottom: 2px solid #07F468;
+}
+
+.nav-item-exit {
+  margin-left: 0.75rem;
+}
+
+a.nav-link-exit {
+  color: #9AA39C !important;
+}
+
+a.nav-link-exit:hover {
+  color: #EDEFEC !important;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}

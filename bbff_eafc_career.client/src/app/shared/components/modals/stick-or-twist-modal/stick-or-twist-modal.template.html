@@ -1,0 +1,24 @@
+<h4 class="header">Are you going to...</h4>
+<br />
+<table class="sot-table">
+  <tr>
+    <td class="sot-part-table">
+      <img class="sot-img" src="{{currentTeamImg}}" alt="{{currentTeamName}}">
+    </td>
+    <td rowspan="3" class="sot-or-part">
+      or
+    </td>
+    <td class="sot-part-table">
+      <img class="sot-img" src="./assets/exit.png" alt="Move to New Club" />
+    </td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td class="sot-part-table">
+      <p-button type="button" label="Stick with {{currentTeamName}}" class="sot-btn p-button-outlined" (click)="makeDecision(true)"></p-button>
+    </td>
+    <td class="sot-part-table">
+      <p-button type="button" label="Move to New Club" class="sot-btn p-button-outlined" (click)="makeDecision(false)"></p-button>
+    </td>
+  </tr>
+</table>

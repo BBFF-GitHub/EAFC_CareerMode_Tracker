@@ -1,0 +1,18 @@
+.current-count {
+  font-size: 1.1rem;
+}
+
+.helper-text {
+  color: #9AA39C;
+  font-size: 0.9rem;
+}
+
+.import-message {
+  display: block;
+  margin-top: 1rem;
+}
+
+.action-btn {
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+}

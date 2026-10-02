@@ -1,0 +1,298 @@
+<h1 class="header">Dashboard</h1>
+<hr />
+
+<div *ngIf="loading" class="header">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+<div *ngIf="!loading && cancelled" class="row">
+  <p>Not enough data to show dashboard yet!</p>
+</div>
+<div *ngIf="!loading && !cancelled" class="row">
+  <div class="col-lg-3 col-md-3 col-sm-3">
+    <!-- Top 5 players - appearances -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <table class="top-5-table">
+          <tr>
+            <td class="table-blank-cell"></td>
+            <td class="tile-header top-5-title">Most Appearances</td>
+            <td class="table-icon-cell">
+              <i class="fa-solid fa-expand top-5-cursor" pTooltip="Expand tile" tooltipPosition="left" (click)="expandTile('Most Appearances')"></i>
+            </td>
+          </tr>
+        </table>
+
+        <table class="tile-table">
+          <tr *ngFor="let p of allTimeAppsList; let i = index;">
+            <td class="top-5-table-index">#{{i + 1}}</td>
+            <td class="table-blank-cell">
+              <p-avatar image="{{p.imagePath}}" styleClass="mr-2" shape="circle"></p-avatar>
+            </td>
+            <td class="top-5-table-player">{{p.name}}</td>
+            <td class="top-5-table-stat">{{p.totalCaps}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Top 5 players - goals -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <table class="top-5-table">
+          <tr>
+            <td class="table-blank-cell"></td>
+            <td class="tile-header top-5-title">Most Goals</td>
+            <td class="table-icon-cell">
+              <i class="fa-solid fa-expand top-5-cursor" pTooltip="Expand tile" tooltipPosition="left" (click)="expandTile('Most Goals')"></i>
+            </td>
+          </tr>
+        </table>
+
+        <table class="tile-table">
+          <tr *ngFor="let p of allTimeGoalsList; let i = index;">
+            <td class="top-5-table-index">#{{i + 1}}</td>
+            <td class="table-blank-cell">
+              <p-avatar image="{{p.imagePath}}" styleClass="mr-2" shape="circle"></p-avatar>
+            </td>
+            <td class="top-5-table-player">{{p.name}}</td>
+            <td class="top-5-table-stat">{{p.totalGoals}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Top 5 players - goals vs team -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Most Goals vs Team</p>
+        <table class="tile-table">
+          <tr *ngFor="let p of allTimeGoalsVsTeamList; let i = index;">
+            <td class="top-5-table-index">#{{i + 1}}</td>
+            <td class="table-blank-cell">
+              <p-avatar image="{{p.playerImagePath}}" styleClass="mr-2" shape="circle"></p-avatar>
+            </td>
+            <td class="table-icon-cell">
+              <img class="table-icon-cell-img" src="{{p.teamImagePath}}" alt="{{p.team}}">
+            </td>
+            <td class="top-5-table-player-short">{{p.playerName}}</td>
+            <td class="top-5-table-stat">{{p.goals}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-md-2 col-sm-2">
+    <!-- Results Summary doughnut chart -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Results Summary</p>
+        <div class="tile-chart">
+          <h4 class="results-pie-text">
+            {{totalGames}}
+            Total
+          </h4>
+          <p-chart type="doughnut" [data]="resultSummaryData" [options]="resultSummaryOptions" height="20vh"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Goals Stats Summary bar chart -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Goals Stats Summary</p>
+        <div class="tile-chart">
+          <p-chart type="bar" [data]="goalSummaryData" [options]="goalSummaryOptions" width="95%" height="10vh"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Money Spent vs Received chart -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Transfer Money In vs Out</p>
+        <div class="tile-chart">
+          <p-chart type="bar" [data]="moneyLogChartData" [options]="moneyLogChartOptions" width="99%" height="23.9vh"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profit/Loss tile -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Profit on Transfers</p>
+        <div class="tile-fact">
+          <h4 class="profit-loss-txt" [style.color]="finalProfit > 0 ? '#000000' : '#FF0000'">{{finalProfitDisplay}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-3 col-sm-3">
+    <!-- Most appearances in a season -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Most Appearances in a Season</p>
+        <table class="tile-table">
+          <tr *ngFor="let p of mostSeasonAppsList; let i = index;">
+            <td class="table-icon-cell">#{{i + 1}}</td>
+            <td class="table-blank-cell">
+              <p-avatar image="{{p.imagePath}}" styleClass="mr-2" shape="circle"></p-avatar>
+            </td>
+            <td class="top-5-table-player-short">{{p.name}}</td>
+            <td class="year-cell">Year {{p.year}}</td>
+            <td class="top-5-table-stat">{{p.caps}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Most goals in a season -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">Most Goals in a Season</p>
+        <table class="tile-table">
+          <tr *ngFor="let p of mostSeasonGoalsList; let i = index;">
+            <td class="table-icon-cell">#{{i + 1}}</td>
+            <td class="table-blank-cell">
+              <p-avatar image="{{p.imagePath}}" styleClass="mr-2" shape="circle"></p-avatar>
+            </td>
+            <td class="top-5-table-player-short">{{p.name}}</td>
+            <td class="year-cell">Year {{p.year}}</td>
+            <td class="top-5-table-stat">{{p.goals}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="row team-dashboard-group">
+      <div class="team-dashboard-group-left">
+        <team-dashboard-tile [team]="mostGPTeam" [title]="'Most GP'" [prop]="'gamesPlayed'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-right">
+        <team-dashboard-tile [team]="mostWinsTeam" [title]="'Most Wins'" [prop]="'wins'" [small]="true"></team-dashboard-tile>
+      </div>
+    </div>
+
+    <div class="row team-dashboard-group">
+      <div class="team-dashboard-group-left">
+        <team-dashboard-tile [team]="mostDrawsTeam" [title]="'Most Draws'" [prop]="'draws'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-right">
+        <team-dashboard-tile [team]="mostLossesTeam" [title]="'Most Losses'" [prop]="'losses'" [small]="true"></team-dashboard-tile>
+      </div>
+    </div>
+
+    <div class="row team-dashboard-group">
+      <div class="team-dashboard-group-left">
+        <team-dashboard-tile [team]="mostPointsTeam" [title]="'Most Points'" [prop]="'points'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-right">
+        <team-dashboard-tile [team]="mostPPGTeam" [title]="'Most Points/Game'" [prop]="'avgPoints'" [small]="true"></team-dashboard-tile>
+      </div>
+    </div>
+
+    <div class="row team-dashboard-group">
+      <div class="team-dashboard-group-trio-1">
+        <team-dashboard-tile [team]="mostGFTeam" [title]="'Most GF'" [prop]="'goalsScored'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-trio-2">
+        <team-dashboard-tile [team]="bestGDTeam" [title]="'Best GD'" [prop]="'goalDifference'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-trio-3">
+        <team-dashboard-tile [team]="mostGATeam" [title]="'Most GA'" [prop]="'goalsAgainst'" [small]="true"></team-dashboard-tile>
+      </div>
+    </div>
+
+    <div class="row team-dashboard-group">
+      <div class="team-dashboard-group-trio-1">
+        <team-dashboard-tile [team]="mostGFPGTeam" [title]="'Most GF/G'" [prop]="'avgGoalsScored'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-trio-2">
+        <team-dashboard-tile [team]="bestGDPGTeam" [title]="'Best GD/G'" [prop]="'avgGoalDifference'" [small]="true"></team-dashboard-tile>
+      </div>
+      <div class="team-dashboard-group-trio-3">
+        <team-dashboard-tile [team]="mostGAPGTeam" [title]="'Most GA/G'" [prop]="'avgGoalsAgainst'" [small]="true"></team-dashboard-tile>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <!-- Game-by-Game Positions chart -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">League Positions through Game Weeks</p>
+        <div class="tile-chart">
+          <p-chart type="line" [data]="leaguePosGWData" [options]="leaguePosGWOptions" height="25vh"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Season-by-Season Positions table -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <p class="tile-header header">League Positions through Seasons</p>
+        <div class="tile-chart">
+          <p-chart type="line" [data]="leaguePosSeasonData" [options]="leaguePosSeasonOptions" height="25vh"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trophy cabinet tile -->
+    <div class="card flex justify-content-center dashboard-tile">
+      <div class="tile-div-normal">
+        <table class="top-5-table">
+          <tr>
+            <td class="table-blank-cell"></td>
+            <td class="tile-header top-5-title">Trophy Cabinet</td>
+            <td class="table-icon-cell">
+              <i class="fa-solid fa-expand top-5-cursor" pTooltip="Expand tile" tooltipPosition="left" (click)="expandTile('Trophy Cabinet')"></i>
+            </td>
+          </tr>
+        </table>
+        <div class="trophy-cabinet-div">
+          <table class="trophy-cabinet-table-1">
+            <tr>
+              <td class="trophy-cabinet-txt-cell">League Wins</td>
+              <td class="trophy-cabinet-value-cell">{{leagueWins}}</td>
+            </tr>
+            <tr>
+              <td class="trophy-cabinet-txt-cell">Domestic Cups</td>
+              <td class="trophy-cabinet-value-cell">{{domesticCupWins}}</td>
+            </tr>
+            <tr>
+              <td class="trophy-cabinet-txt-cell">Promotions</td>
+              <td class="trophy-cabinet-value-cell">{{promotions}}</td>
+            </tr>
+            <tr>
+              <td class="trophy-cabinet-txt-cell">Relegations</td>
+              <td class="trophy-cabinet-value-cell">{{relegations}}</td>
+            </tr>
+          </table>
+          <table class="trophy-cabinet-table-2">
+            <tr>
+              <td class="trophy-cabinet-txt-cell">European Cups</td>
+              <td class="trophy-cabinet-value-cell">{{europeanCupWins}}</td>
+            </tr>
+            <tr>
+              <td class="trophy-cabinet-txt-cell">Conmebol Cups</td>
+              <td class="trophy-cabinet-value-cell">{{americanCupWins}}</td>
+            </tr>
+            <tr>
+              <td class="trophy-cabinet-txt-cell">International Cups</td>
+              <td class="trophy-cabinet-value-cell">{{internationalCupWins}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="{{modalHeader}}" [(visible)]="showModal" [modal]="true" [style]="{width: '50vw'}"
+          [draggable]="false" [resizable]="false">
+  <table-tile-modal *ngIf="modalMode == 'table-tile-modal'" [players]="allPlayers" [overview]="leaguePositionList"
+                    [tileHeader]="tileHeader" [totalProp]="tileProp"></table-tile-modal>
+  <trophy-cabinet-modal *ngIf="modalMode == 'trophy-cabinet-modal'" [trophyCabinet]="trophyCabinet" [tileHeader]="tileHeader"></trophy-cabinet-modal>
+</p-dialog>

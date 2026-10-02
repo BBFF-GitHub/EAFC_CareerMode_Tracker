@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label style="font-weight: bold;">Old Position</label>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <p style="padding-left: 0.8rem;">{{oldPosition}}</p>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label class="position-label">New Position</label>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <p-select [options]="positions" [(ngModel)]="player.position"></p-select>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <label class="position-label">Also Eligible For</label>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <p-multiSelect [options]="eligiblePositionOptions" [(ngModel)]="selectedEligiblePositions"
+                        placeholder="No other positions" [showClear]="true"></p-multiSelect>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <td style="margin-left: auto; margin-right: auto; display: block">
+      <img class="player-big-img" src="{{bigPhoto}}" alt="{{player.player}}" />
+    </td>
+  </div>
+</div>
+<br />
+<br />
+<hr />
+<p-button type="button" label="Save Position Change" class="action-btn p-button-outlined" (click)="savePosChange()"></p-button>

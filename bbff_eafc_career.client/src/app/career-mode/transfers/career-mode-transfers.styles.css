@@ -1,0 +1,89 @@
+.header {
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.money-table-transfer-cell {
+  width: 29%;
+}
+
+.money-table-year-cell {
+  width: 13%;
+}
+
+.transfer-table-avatar-cell {
+  width: 4%;
+}
+
+.transfer-table-border {
+  border-right: 1px solid #dee2e6 !important;
+}
+
+.transfer-table-cell-centre {
+  text-align: center !important;
+}
+
+.transfer-table-data {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.transfer-table-date-cell {
+  width: 7%;
+}
+
+.transfer-table-fee-cell {
+  width: 10%;
+}
+
+.transfer-table-player-cell {
+  width: 21%;
+}
+
+.transfer-table-player-header {
+  width: 25%;
+}
+
+.transfer-table-status-cell {
+  width: 7%;
+}
+
+.transfer-table-team-cell {
+  width: 23%;
+}
+
+.transfer-table-year-cell {
+  width: 5%;
+}
+
+::ng-deep .p-avatar-circle img {
+  border: 1px solid #06421f;
+  border-radius: 50%;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #06421f;
+}
+
+::ng-deep .p-tabview-nav-link {
+  color: #06421f;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  ::ng-deep .p-tabview-nav-link:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+::ng-deep .transfer-table-status-cell > p-tag > .p-tag {
+  font-size: 1rem !important;
+}
+
+  ::ng-deep .transfer-table-status-cell > p-tag > .p-tag.p-tag-rounded {
+    width: 4rem !important;
+  }

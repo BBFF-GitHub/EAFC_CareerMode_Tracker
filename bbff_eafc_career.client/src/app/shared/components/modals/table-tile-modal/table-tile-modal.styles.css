@@ -1,0 +1,39 @@
+.tile-avatar-cell {
+  width: 1rem !important;
+  width: 5%;
+  
+}
+
+.tile-detail-cell {
+  width: 40%;
+  white-space: pre-line;
+}
+
+.tile-index-cell {
+  width: 10%;
+}
+
+.tile-player-cell {
+  width: 35%;
+}
+
+.tile-player-header {
+  width: 40%;
+}
+
+.tile-stat-cell {
+  text-align: center !important;
+  font-weight: bold !important;
+  width: 10%;
+}
+
+.tile-stat-header {
+  text-align: center !important;
+  width: 10%;
+}
+
+::ng-deep .tile-avatar .p-avatar-circle img {
+  border: 1px solid #06421f;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+}

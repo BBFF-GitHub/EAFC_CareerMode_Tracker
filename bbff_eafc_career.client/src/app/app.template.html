@@ -1,0 +1,14 @@
+<body [ngClass]="this.router.url.length == 1 ? 'eafc-home-theme' : 'eafc-main-theme'">
+  <button *ngIf="this.router.url.length > 1" type="button" class="theme-toggle-btn" [attr.aria-label]="themeService.isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+          (click)="themeService.toggleTheme()">
+    <i *ngIf="!themeService.isDarkMode" class="fa-solid fa-moon"></i>
+    <i *ngIf="themeService.isDarkMode" class="fa-solid fa-sun"></i>
+  </button>
+
+  <app-nav-menu *ngIf="this.router.url.length > 1"></app-nav-menu>
+
+  <div class="container eafc-width">
+    <router-outlet></router-outlet>
+    <p-toast></p-toast>
+  </div>
+</body>

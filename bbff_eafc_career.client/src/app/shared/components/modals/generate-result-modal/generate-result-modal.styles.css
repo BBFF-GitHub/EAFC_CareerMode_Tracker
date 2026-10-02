@@ -1,0 +1,281 @@
+.action-btn {
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+}
+
+.penalty-text {
+  margin-left: 0.5rem;
+}
+
+.squad-delete-btn {
+  color: #FF0000;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.squad-delete-btn:hover {
+  color: #A50000;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+::ng-deep .p-select-item {
+  font-size: 14px;
+  padding: 0.5rem 1rem;
+}
+
+::ng-deep .result-player-dropdown.p-select {
+  width: 100% !important;
+  height: 32px;
+  display: flex !important;
+  align-items: center;
+}
+
+::ng-deep .result-player-dropdown .p-select-label {
+  font-size: 0.8rem !important;
+  padding: 0.1rem 0.2rem 0.1rem 0.2rem !important;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .p-select-overlay .p-select-list .p-select-option {
+  font-size: 0.8rem !important;
+  padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+}
+
+::ng-deep .p-select-overlay .p-select-header .p-select-filter {
+  font-size: 0.8rem !important;
+  padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+}
+
+::ng-deep .p-select-overlay .p-select-list .p-select-empty-message {
+  font-size: 0.8rem !important;
+  padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+}
+
+::ng-deep .result-player-number .p-inputnumber-input {
+  padding: 0.2rem 0rem 0.2rem 0rem !important;
+  font-size: 14px;
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Generate Results redesign - team cards (crest/name/shirt) on
+   one line either side of large centred score inputs, and a
+   scrollable player-ratings list (11 fixed starting-XI rows +
+   substitute slots) instead of a single flat table.
+   ------------------------------------------------------------ */
+.results-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Kanit', sans-serif;
+}
+
+.results-header-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.results-team-card {
+  flex: 1;
+  background: #F7F6F1;
+  border: 1px solid #DCDACF;
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.results-team-card-away {
+  flex-direction: row-reverse;
+}
+
+.results-team-card-away .results-team-name {
+  text-align: right;
+}
+
+.results-team-crest {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #FFFFFF;
+  border: 1px solid #DCDACF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.results-team-crest img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.results-team-name {
+  font-weight: 600;
+  font-size: 18px;
+  flex-grow: 1;
+  color: #14201A;
+}
+
+.results-score-div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.results-vs-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #9A9689;
+  letter-spacing: 1px;
+}
+
+::ng-deep .results-score-input .p-inputnumber-input {
+  width: 56px;
+  height: 56px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.results-penalty-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+
+.results-divider {
+  height: 1px;
+  background: #ECEAE3;
+}
+
+.results-body-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.results-xi-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results-position-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.results-position-card {
+  width: 240px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+.results-position-header {
+  padding: 5px 10px;
+  font-size: 11px;
+  border-radius: 10px 10px 0 0;
+}
+
+.results-position-body {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 0 0 10px 10px;
+}
+
+.results-position-stats {
+  display: flex;
+  gap: 8px;
+}
+
+.results-position-stat {
+  flex: 1;
+}
+
+.results-position-stat-label {
+  font-size: 9px;
+  color: #9A9689;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+.results-subs-divider {
+  width: 1px;
+  align-self: stretch;
+  background: #ECEAE3;
+  flex-shrink: 0;
+}
+
+.results-subs-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results-subs-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #9A9689;
+  letter-spacing: 0.5px;
+}
+
+.results-subs-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 65vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.sub-card-header {
+  background: #9A9689;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-card-header i {
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.sub-card-header i:hover {
+  color: #F0F0F0;
+}
+
+.results-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.results-invalid-text {
+  color: #B3312C;
+  font-size: 13px;
+}

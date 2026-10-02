@@ -1,0 +1,111 @@
+.action-btn {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 5vw;
+  border: 2px solid #FFFFFF !important;
+  border-radius: 5px;
+}
+
+.compulsory-cups {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.confirm-optional-cups {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cup-checkbox {
+  width: 10%;
+}
+
+.cup-name {
+  width: 90%;
+}
+
+.final-choice-header {
+  width: 30%;
+}
+
+.final-choice-value {
+  width: 70%;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.loading-txt, .selection-title {
+  text-align: center;
+}
+
+.nav-arrow {
+  color: #5F6776;
+  cursor: pointer;
+}
+
+.nav-arrow:hover {
+  color: #374151;
+}
+
+.nav-btn-left {
+  float: left;
+  border: 2px solid #000000;
+}
+
+.nav-btn-right {
+  float: right;
+  border: 2px solid #000000;
+}
+
+.nav-cell {
+  width: 15%;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.optional-cups {
+  margin-top: 1rem
+}
+
+.selection-cell {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block
+}
+
+.selection-div {
+  margin-bottom: 1rem;
+}
+
+.selection-img {
+  height: 12rem;
+}
+
+.selection-img-cell {
+  width: 70%;
+  text-align: center;
+}
+
+.team-card {
+  border-radius: 5px 5px;
+  border-width: 2px !important;
+  padding-left: 5px;
+  padding-right: 10rem;
+}
+
+.team-card-new {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+::ng-deep .p-select {
+  width: 100%;
+}

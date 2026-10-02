@@ -1,0 +1,36 @@
+<header>
+  <nav class="eafc-nav-theme navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+    <div class="container eafc-width">
+      <a class="eafc-nav-theme navbar-brand" title="{{cmTrackerService.name}}">{{cmTrackerService.name}}</a>
+      <p-button class="eafc-nav-theme-inverse navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+              aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </p-button>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li *ngIf="cmTrackerService.status !== 'not started'" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link eafc-nav-theme" [routerLink]="['career-mode/hub']" (click)="collapse()">Current Season</a>
+          </li>
+          <li *ngIf="cmTrackerService.status !== 'not started'" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link eafc-nav-theme" [routerLink]="['career-mode/dashboard']" (click)="collapse()">Dashboard</a>
+          </li>
+          <li *ngIf="cmTrackerService.status !== 'not started'" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link eafc-nav-theme" [routerLink]="['career-mode/overview']" (click)="collapse()">Overview</a>
+          </li>
+          <li *ngIf="cmTrackerService.status !== 'not started'" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link eafc-nav-theme" [routerLink]="['career-mode/player-stats']" (click)="collapse()">All-Time Player Stats</a>
+          </li>
+          <li *ngIf="cmTrackerService.status !== 'not started'" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link eafc-nav-theme" [routerLink]="['career-mode/head-to-head']" (click)="collapse()">All-Time Head-to-Head Stats</a>
+          </li>
+          <li *ngIf="cmTrackerService.status !== 'not started'" class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link eafc-nav-theme" [routerLink]="['career-mode/transfers']" (click)="collapse()">Transfer Summary</a>
+          </li>
+          <li class="nav-item nav-item-exit" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link nav-link-exit eafc-nav-theme" [routerLink]="['/']" (click)="collapse()">Exit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

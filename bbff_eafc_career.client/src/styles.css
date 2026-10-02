@@ -1,0 +1,208 @@
+@import "primeicons/primeicons.css";
+
+a {
+  color: #0366d6;
+}
+
+body {
+  font-family: 'Kanit', sans-serif;
+}
+
+button {
+  border-radius: 6px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.eafc-home-theme {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background-color: #0B0D0C;
+  color: #EDEFEC;
+}
+
+.eafc-home-theme .container.eafc-width {
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.eafc-main-theme {
+  height: 100vh;
+  background-color: #ebebeb !important;
+  color: #06421f !important;
+}
+
+.app-dark .eafc-main-theme {
+  background-color: #14171A !important;
+  color: #EDEFEC !important;
+}
+
+.theme-toggle-btn {
+  position: fixed;
+  top: 0.5rem;
+  right: 16px;
+  z-index: 1200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #FFFFFF;
+  color: #06421F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.app-dark .theme-toggle-btn {
+  background:#0B0D0C !important;
+  color:#EDEFEC !important;
+  border-color:rgba(255, 255, 255, 0.15) !important;
+}
+
+.eafc-modal-theme {
+  background-color: #ebebeb !important;
+  color: #06421f !important;
+}
+
+.eafc-nav-theme {
+  background-color: #0B0D0C !important;
+  color: #EDEFEC !important;
+}
+
+.eafc-nav-theme-inverse {
+  background-color: #07F468 !important;
+  color: #06110B !important;
+}
+
+.formation-misc-background {
+  background-color: #A6A6A6;
+  color: #000000;
+  font-weight: bold;
+}
+
+.info-btn {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  .info-btn:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+ol, ul {
+  padding-left: unset !important;
+  margin-bottom: unset !important;
+}
+
+.p-button.p-button-outlined {
+  background-color: #07F468 !important;
+  color: #000000 !important;
+}
+
+  .p-button.p-button-outlined:hover {
+    background-color: #06421f !important;
+    color: #000000 !important;
+  }
+
+.p-card {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.p-error {
+  color: #ff7e7e;
+  font-weight: bold;
+}
+
+.player-big-img {
+  width: 180px;
+  height: 180px;
+}
+
+.pos-df-background {
+  background-color: #EF4444;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.pos-gk-background {
+  background-color: #F59E0B;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.pos-mf-background {
+  background-color: #22C55E;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.pos-st-background {
+  background-color: #3B82F6;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.team-card {
+  border-radius: 5px 5px;
+  border-width: 2px !important;
+  padding-left: 5px;
+  padding-right: 10rem;
+}
+
+::ng-deep p-button > .p-button {
+  width: 100%;
+  border-radius: 2px !important;
+}
+
+::ng-deep .p-tablist-tab-list {
+  background: unset !important;
+}
+
+::ng-deep .p-tab:hover {
+  color: #06421f !important;
+}
+
+::ng-deep .p-tabpanels {
+  background: unset !important;
+}
+
+@media (min-width: 2501px) {
+  .eafc-width {
+    max-width: 2200px !important;
+  }
+}
+
+@media (max-width: 2500px) {
+  .eafc-width {
+    max-width: 1750px !important;
+  }
+}
+
+@media (max-width: 1550px) {
+  .eafc-width {
+    max-width: 1240px !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .eafc-width {
+    max-width: 900px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .eafc-width {
+    max-width: 475px !important;
+  }
+}

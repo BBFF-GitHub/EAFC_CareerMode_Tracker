@@ -1,0 +1,236 @@
+.fa-futbol {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.fa-futbol:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.header {
+  text-align: center;
+}
+
+.h2h-player-table-avatar-cell {
+  width: 3%;
+}
+
+.h2h-player-table-border {
+  border-right: 1px solid #dee2e6 !important;
+}
+
+.h2h-player-table-goals-gap-cell {
+  width: 60%;
+}
+
+.h2h-player-table-goals-gap-header {
+  width: 63%;
+}
+
+.h2h-player-table-player-cell {
+  width: 17%;
+}
+
+.h2h-player-table-player-header {
+  width: 20%;
+  text-align: center;
+}
+
+.h2h-player-table-pos-cell {
+  width: 9% !important;
+  text-align: center;
+}
+
+.h2h-player-table-total-cell {
+  text-align: center;
+  width: 10%;
+  font-weight: bold;
+}
+
+.h2h-table-data {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.h2h-team-table-border {
+  border-left: 1px solid #dee2e6 !important;
+}
+
+.h2h-team-table-logo-cell {
+  width: 5%;
+  text-align: center;
+}
+
+.h2h-team-table-logo-img {
+  height: 2.5rem;
+  margin-top: 0.2rem;
+}
+
+.h2h-team-table-gd-stat-cell {
+  text-align: center;
+  width: 5%;
+  font-weight: bold;
+}
+
+.h2h-team-table-plyd-stat-cell {
+  text-align: center;
+  width: 7%;
+  font-weight: bold;
+}
+
+.h2h-team-table-ppg-stat-cell {
+  text-align: center;
+  width: 10%;
+  font-weight: bold;
+}
+
+.h2h-team-table-stats-gap-cell {
+  width: 50%;
+}
+
+.h2h-team-table-stats-gap-header {
+  width: 53%;
+}
+
+.h2h-team-table-stats-visual {
+  width: 90%;
+}
+
+.h2h-team-table-stats-visual-title {
+  width: 10%;
+}
+
+.h2h-team-table-team-card {
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 5px 5px;
+  border-width: 2px !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.4rem;
+}
+
+.h2h-team-table-team-cell {
+  width: 20%;
+}
+
+.h2h-team-table-team-header {
+  width: 25%;
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.pie-chart-div {
+  width: 20%;
+}
+
+.pie-middle-image {
+  position: relative;
+  display: inline;
+  text-align: center;
+  margin-top: -18.7vh;
+  margin-left: 6vw;
+}
+
+.results-player-card {
+  font-size: 1rem;
+  font-weight: bold;
+  border: unset !important;
+  padding-top: 0.3rem;
+  padding-bottom: 0.5rem;
+  cursor: default;
+}
+
+.results-team-card {
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: unset !important;
+  padding-top: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+
+.team-pie-middle-image {
+  /*min-height: 3.5rem;
+  min-width: 3.5rem;
+  max-height: 4rem;
+  max-width: 4rem;*/
+  max-height: 9vh;
+  max-width: 5vw;
+}
+
+.view-more-cell {
+  width: 3%;
+  text-align: center;
+}
+
+.view-more-icon {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  .view-more-icon:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+::ng-deep .h2h-player-table-goals-gap-cell .p-metergroup.p-metergroup-horizontal .p-metergroup-meters {
+  height: 2rem;
+}
+
+::ng-deep .h2h-player-table-goals-gap-cell p-metergrouplabel, ::ng-deep .h2h-team-table-stats-gap-cell p-metergrouplabel {
+  display: none;
+}
+
+::ng-deep .h2h-player-table-pos-cell > p-tag > .p-tag {
+  font-size: 1rem !important;
+}
+
+::ng-deep .h2h-player-table-pos-cell > p-tag > .p-tag.p-tag-rounded {
+  width: 4rem !important;
+}
+
+::ng-deep .h2h-team-table-stats-gap-cell .p-metergroup .p-metergroup-meters {
+  margin-top: 0.6rem;
+}
+
+::ng-deep .p-avatar-circle img {
+  border: 1px solid #06421f;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+}
+
+::ng-deep p-chart.team-h2h-donut div {
+  margin-bottom: -2vh;
+}
+
+::ng-deep .pi-filter-icon, ::ng-deep .p-sortable-column-icon {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+::ng-deep .pi-filter-icon:hover, ::ng-deep .p-sortable-column-icon:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+::ng-deep .p-metergroup .p-metergroup-meters {
+    background-color: transparent;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #06421f;
+}
+
+::ng-deep .p-tabview-nav-link {
+  color: #06421f;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+::ng-deep .p-tabview-nav-link:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}

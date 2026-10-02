@@ -1,0 +1,61 @@
+<!-- GK ROWS -->
+<div class="row formation-table formation-row">
+  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="gkList" [title]="'Goalkeepers'" [code]="'GK'" [cssClass]="'pos-gk-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+</div>
+
+<!-- DF ROWS -->
+<div class="row formation-table formation-row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="rbList" [title]="'Right Backs'" [code]="'RB'" [cssClass]="'pos-df-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="cbList" [title]="'Centre Backs'" [code]="'CB'" [cssClass]="'pos-df-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="lbList" [title]="'Left Backs'" [code]="'LB'" [cssClass]="'pos-df-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+</div>
+
+<!-- CDM ROWS -->
+<div class="row formation-table formation-row">
+  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="cdmList" [title]="'Centre Defensive Mids'" [code]="'CDM'" [cssClass]="'pos-mf-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+</div>
+
+<!-- ATTACKIVE MF ROWS -->
+<div class="row formation-table formation-row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="ramList" [title]="'Right Attackive Mids'" [code]="'RAM'" [cssClass]="'pos-mf-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="camList" [title]="'Centre Attackive Mids'" [code]="'CAM'" [cssClass]="'pos-mf-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="lamList" [title]="'Left Attackive Mids'" [code]="'LAM'" [cssClass]="'pos-mf-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+</div>
+
+<!-- ST ROWS -->
+<div class="row formation-row">
+  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <player-table [squadList]="stList" [title]="'Strikers'" [code]="'ST'" [cssClass]="'pos-st-background'"
+                  [fromOverview]="fromOverview" (addPlayerEmit)="addPlayer($event)" (reorderEmit)="finishReorder($event)"></player-table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4"></div>
+</div>

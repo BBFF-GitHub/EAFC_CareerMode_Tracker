@@ -1,0 +1,46 @@
+.action-btn {
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  display: block;
+  width: 10vw;
+}
+
+.header {
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.pre-pop-table-avatar-cell {
+  width: 10% !important;
+}
+
+.pre-pop-table-centre-header {
+  text-align: center !important;
+}
+
+.pre-pop-table-checkbox-header {
+  width: 12%;
+  text-align: center !important;
+}
+
+.pre-pop-table-player-header {
+  width: 36%;
+}
+
+.pre-pop-table-pos-header {
+  width: 12%;
+  text-align: center !important;
+}
+
+.pre-pop-table-row > td {
+  color: #1E2622 !important;
+}
+
+:host-context(.app-dark) .pre-pop-table-row > td {
+  color: #EDEFEC !important;
+}

@@ -1,0 +1,128 @@
+.action-btn {
+  border: 2px solid #000000;
+  border-radius: 5px;
+  display: block;
+  width: 10vw;
+}
+
+.label-title {
+  font-weight: bold;
+}
+
+.label-txt {
+  margin-left: 0.5rem;
+}
+
+.loading-spinner {
+  display: block;
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 2.5rem;
+}
+
+.loading-teams-div, .player-img-div {
+  text-align: center;
+  height: 180px;
+}
+
+.loading-txt {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.new-player-label {
+  font-weight: bold;
+  padding-top: 0.8rem;
+}
+
+.new-player-textbox, .player-img-table {
+  width: 100%;
+}
+
+.pic-btn {
+  border: 2px solid #000000;
+  border-radius: 5px;
+  display: block;
+  width: 20vw;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.player-img-cell {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.player-img-move {
+  width: 15%;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.transfer-amount-div {
+  margin-top: 3rem;
+}
+
+.transfer-amount-icon {
+  margin-left: 0.2rem;
+}
+
+.transfer-amount-title {
+  font-weight: bold;
+  margin-right: 0.2rem;
+}
+
+.transfer-div {
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep .add-player-amount .p-inputnumber .p-inputnumber-input {
+  text-align: unset !important;
+}
+
+.not-found-div {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.not-found-text {
+  color: #9AA39C;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.added-to-db-text {
+  color: #07F468;
+  font-size: 0.9rem;
+}
+
+.add-to-db-btn {
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+}
+
+.add-to-db-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.add-to-db-input {
+  width: 100%;
+}
+
+.add-to-db-gender {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}

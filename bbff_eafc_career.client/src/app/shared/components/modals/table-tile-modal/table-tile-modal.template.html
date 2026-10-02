@@ -1,0 +1,21 @@
+<p-table [value]="playersToFilter" [rows]="10" styleClass="p-datatable-sm">
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="tile-index-cell">#</th>
+      <th colspan="2" rowspan="2" class="tile-player-header">Player</th>
+      <th class="tile-player-header">Details</th>
+      <th class="tile-stat-header">{{(tileHeader == "Most Appearances" ? "Appearances" : "Goals")}}</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-player let-i="rowIndex">
+    <tr>
+      <td class="tile-index-cell">#{{i + 1}}</td>
+      <td class="tile-avatar-cell">
+        <p-avatar class="tile-avatar" image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+      </td>
+      <td class="tile-player-cell">{{player.name}}</td>
+      <td class="tile-detail-cell">{{player.detailTxt}}</td>
+      <td class="tile-stat-cell">{{player[totalProp]}}</td>
+    </tr>
+  </ng-template>
+</p-table>

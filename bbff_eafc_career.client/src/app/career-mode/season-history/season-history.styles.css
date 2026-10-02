@@ -1,0 +1,33 @@
+.custom-marker {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.career-mode-card:hover {
+  cursor: pointer;
+  background-color: #ff0000 !important;
+}
+
+.career-mode-card-img {
+  width: 22vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2vh;
+}
+
+::ng-deep .p-card-title {
+  text-align: center;
+  font-size: 2.5rem !important;
+}
+
+::ng-deep .p-card .p-card-content {
+  padding: 0;
+}

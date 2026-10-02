@@ -1,0 +1,30 @@
+<div *ngIf="rounds.length > 0 && fixtures.length > 0" class="tournament-container">
+  <div class="tournament-headers">
+    <h3 *ngFor="let r of rounds; let i = index">
+      {{r}}
+      <span style="display: block; font-size: 0.8rem">Race 1: {{cupData[i].raceName}}</span>
+      <span *ngIf="cupData[i].raceName2 != null" style="display: block; font-size: 0.8rem">Race 2: {{cupData[i].raceName2}}</span>
+      <span style="display: block; font-size: 0.8rem">Replay Race: {{cupData[i].replayRaceName}}</span>
+    </h3>
+  </div>
+
+  <div class="tournament-brackets">
+    <ul *ngFor="let fList of fixtures" class="bracket">
+      <li *ngFor="let f of fList" class="team-item">
+        <div class="row" style="margin-bottom:1px;">
+          <span style="word-break: break-word;" [style.font-weight]="f.myTeam1 ? 'bold' : ''">{{f.team1}}</span>
+          <span *ngIf="f.score1 != -1" class="score" [style.font-weight]="f.myTeam1 ? 'bold' : ''"
+                [style.background-color]="f.score1 > f.score2 ? '#1b7e02' : '#dbdbdb'"
+                [style.color]="f.score1 > f.score2 ? '#ffffff' : '#000000'">{{f.score1}}</span>
+          <span *ngIf="f.score1 == -1">vs</span>
+        </div>
+        <div class="row" style="margin-top:1px;">
+          <span *ngIf="f.score2 != -1" class="score" [style.font-weight]="f.myTeam2 ? 'bold' : ''"
+                [style.background-color]="f.score2 > f.score1 ? '#1b7e02' : '#dbdbdb'"
+                [style.color]="f.score2 > f.score1 ? '#ffffff' : '#000000'">{{f.score2}}</span>
+          <span style="word-break: break-word;" [style.font-weight]="f.myTeam2 ? 'bold' : ''">{{f.team2}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

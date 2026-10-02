@@ -1,0 +1,41 @@
+.delete-btn {
+  color: #FF0000;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: #A50000;
+}
+
+.delete-cell {
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.no-games-found-div {
+  text-align: center;
+}
+
+.open-career-link {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.open-career-link:hover {
+  cursor: pointer;
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+::ng-deep .pi-filter-icon, ::ng-deep .p-sortable-column-icon {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  ::ng-deep .pi-filter-icon:hover, ::ng-deep .p-sortable-column-icon:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }

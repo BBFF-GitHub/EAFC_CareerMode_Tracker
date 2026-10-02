@@ -1,0 +1,46 @@
+<!-- Normal card -->
+<div *ngIf="!reorderMode" class="player-card">
+  <div class="player-card-header {{cssClass}}">
+    <span>{{title}}</span>
+    <span class="player-card-header-icons">
+      <i *ngIf="!fromOverview" class="pi pi-plus-circle player-card-btn" pTooltip="Add new {{code}}" (click)="addPlayer()"></i>
+      <i *ngIf="!fromOverview && squadList != undefined && squadList.length > 1" class="pi pi-arrows-alt player-card-btn" pTooltip="Re-order {{code}}s" (click)="reorderMode = true"></i>
+    </span>
+  </div>
+
+  <div *ngIf="squadList == undefined || squadList.length == 0" class="player-card-empty">No {{code}}s in squad!</div>
+
+  <ng-container *ngIf="squadList != undefined && squadList.length > 0">
+    <div class="player-card-row" *ngFor="let p of squadList" [class.loaned-in-row]="p.loanedIn" [class.retiring-row]="p.retiring">
+      <span class="player-card-pos">{{code}} #{{p.order}}</span>
+      <span class="player-card-name">{{p.player}}</span>
+      <span class="player-card-rating" pTooltip="Player ability rating - not tracked yet">OVR --</span>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Re-order card -->
+<div *ngIf="reorderMode" class="player-card">
+  <div class="player-card-header {{cssClass}}">
+    <span>{{title}}</span>
+    <span *ngIf="!fromOverview && squadList && squadList.length > 1" class="player-card-header-icons">
+      <i class="pi pi-check-circle player-card-btn" pTooltip="Confirm {{code}} order" (click)="finishReorder()"></i>
+    </span>
+  </div>
+
+  <div *ngIf="!squadList || squadList.length === 0" class="player-card-empty">No {{code}}s in squad!</div>
+
+  <p-table *ngIf="squadList && squadList.length > 0" [value]="squadList" styleClass="player-card-drag-table">
+    <ng-template pTemplate="body" let-p let-rowIndex="rowIndex">
+      <tr [pReorderableRow]="rowIndex" class="player-card-drag-row" [class.loaned-in-row]="p.loanedIn" [class.retiring-row]="p.retiring">
+        <td class="player-card-drag-handle-cell">
+          <i pReorderableRowHandle class="pi pi-arrows-alt player-card-drag-handle"></i>
+        </td>
+        <td class="player-card-drag-name-cell">{{p.player}}</td>
+        <td class="player-card-drag-rating-cell">
+          <span class="player-card-rating" pTooltip="Player ability rating - not tracked yet">OVR --</span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

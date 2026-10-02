@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="row status-div">
+      <label class="section-label">Status</label>
+      <div *ngFor="let status of statuses" class="field-checkbox">
+        <p-radioButton [value]="status" [(ngModel)]="selectedStatus" [disabled]="status.disabled" (onClick)="changeStatus()"></p-radioButton>
+        <label style="margin-left: 0.5rem;">{{status.status}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="loadingTeams" style="text-align: center; height: 180px;">
+        <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+        <b style="margin-top: 0.4rem; margin-left: 2rem; font-size: 3.5rem;">Finding teams...</b>
+      </div>
+      <ng-container *ngIf="!loadingTeams">
+        <div *ngIf="!preContractOut" class="row" style="margin-bottom: 0.5rem;">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <label class="remove-player-label">Date of Transfer</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <p-datepicker [(ngModel)]="transferDate" dateFormat="dd/mm/yy"/>
+          </div>
+        </div>
+        <div *ngIf="selectedStatus.status != 'Terminate Contract'" class="row" style="margin-bottom: 3rem;">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <label class="remove-player-label">To Club</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <p-select class="remove-player-field" [options]="allClubs" [(ngModel)]="toClub" [filter]="true" optionLabel="teamCountryCombo"></p-select>
+          </div>
+        </div>
+        <div *ngIf="selectedStatus.status != 'Terminate Contract'" class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <label class="section-label">Transfer Type</label>
+            <div *ngFor="let type of transferTypes" class="field-checkbox">
+              <p-radioButton [value]="type" [(ngModel)]="selectedType" [disabled]="type.disabled" (onClick)="changeType()"></p-radioButton>
+              <label style="margin-left: 0.5rem;">{{type.type}}</label>
+            </div>
+          </div>
+          <div *ngIf="selectedType !== undefined && selectedType.type == 'Permanent'" class="col-lg-8 col-md-8 col-sm-8" style="margin-top: 3rem;">
+            <label class="amount-label">Amount: </label>
+            <ng-container *ngIf="toClub !== undefined && toClub.id !== undefined && toClub.id > 0">
+              {{currency}}
+              <p-inputnumber class="remove-player-amount" inputId="integeronly" [(ngModel)]="transferAmount"></p-inputnumber>
+              <i class="fa-solid fa-circle-info" style="margin-left: 0.2rem;" pTooltip="Enter full amount of transfer fee" tooltipPosition="right"></i>
+            </ng-container>
+            <ng-container *ngIf="toClub !== undefined && toClub.id !== undefined && toClub.id == 0">{{currency}}0</ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <td style="margin-left: auto; margin-right: auto; display: block">
+      <img class="player-big-img" src="{{bigPhoto}}" alt="{{player.player}}" />
+    </td>
+  </div>
+</div>
+<br />
+<br />
+<br />
+<hr />
+<p-button type="button" label="Remove Player" class="button p-button-outlined" (click)="removePlayer()"></p-button>

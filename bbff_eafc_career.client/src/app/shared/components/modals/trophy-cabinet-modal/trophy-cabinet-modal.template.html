@@ -1,0 +1,23 @@
+<p-table [value]="trophyCabinet" [rows]="10" styleClass="p-datatable-sm">
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="img-cell"></th>
+      <th class="cup-name-cell">Competition</th>
+      <th class="cup-type-cell">Type</th>
+      <th class="cup-wins-header">Wins</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-trophy>
+    <tr>
+      <td class="img-cell">
+        <img class="country-flag-img" src="{{trophy.flagImgPath}}" alt="{{trophy.countryCode}}">
+      </td>
+      <td class="cup-name-cell">{{trophy.cupName}}</td>
+      <td class="cup-type-cell">{{trophy.cupType}}</td>
+      <td class="cup-wins-cell">
+        {{trophy.wins}}
+        <span *ngIf="trophy.wins == 0 && trophy.bestPlacedDisplay.length > 0"> (Best: {{trophy.bestPlacedDisplay}})</span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

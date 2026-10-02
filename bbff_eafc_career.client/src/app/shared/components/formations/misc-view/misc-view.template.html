@@ -1,0 +1,198 @@
+<!-- KEY -->
+<div class="row misc-table">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <table class="player-table">
+      <tr>
+        <th class="formation-misc-background pos-header">Key</th>
+      </tr>
+      <tr>
+        <td class="key-row loaned-in-row">Loaned In</td>
+      </tr>
+      <tr>
+        <td class="key-row retiring-row">Retiring</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+ <!-- ON LOAN PLAYERS -->
+<div *ngIf="!fromOverview || (fromOverview && onLoanList != undefined && onLoanList.length > 0)"
+     class="row misc-table">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <table class="player-table">
+      <tr>
+        <th class="formation-misc-background pos-header-with-icons" colspan="2">
+          On Loan
+          <span *ngIf="!fromOverview" class="add-btn-div">
+            <i class="pi pi-plus-circle misc-table-btn" (click)="addPlayer('loan')"></i>
+          </span>
+        </th>
+      </tr>
+      <ng-container *ngIf="onLoanList != undefined && onLoanList.length > 0">
+        <tr *ngFor="let p of onLoanList">
+          <td class="pos-row">{{p.position}}</td>
+          <td class="misc-player-row">{{p.player}}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
+
+<!-- TRANSFER LISTED PLAYERS -->
+<div *ngIf="!fromOverview || (fromOverview && transferList != undefined && transferList.length > 0)"
+     class="row misc-table">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <table class="player-table">
+      <tr>
+        <th class="formation-misc-background pos-header-with-icons" colspan="2">
+          Transfer Listed
+          <span *ngIf="!fromOverview" class="add-btn-div">
+            <i class="pi pi-plus-circle misc-table-btn" (click)="addPlayer('transfer')"></i>
+          </span>
+        </th>
+      </tr>
+      <ng-container *ngIf="transferList != undefined && transferList.length > 0">
+        <tr *ngFor="let p of transferList">
+          <td class="pos-row">{{p.position}}</td>
+          <td class="misc-player-row">{{p.player}}
+            <span *ngIf="p.loanListed"> (L)</span>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
+
+<!-- YOUTH SQUAD PLAYERS -->
+<div *ngIf="!fromOverview || (fromOverview && youthSquadList != undefined && youthSquadList.length > 0)"
+     class="row misc-table">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <table class="player-table">
+      <tr>
+        <th class="formation-misc-background pos-header-with-icons" colspan="2">
+          Youth Squad
+          <span *ngIf="!fromOverview" class="add-btn-div">
+            <i class="pi pi-plus-circle misc-table-btn" (click)="addPlayer('youth')"></i>
+          </span>
+        </th>
+      </tr>
+      <ng-container *ngIf="youthSquadList != undefined && youthSquadList.length > 0">
+        <tr *ngFor="let p of youthSquadList">
+          <td class="pos-row">{{p.position}}</td>
+          <td class="misc-player-row">{{p.player}}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
+
+<!-- PRE CONTRACT PLAYERS -->
+<div *ngIf="!fromOverview || (fromOverview && preContractList != undefined && preContractList.length > 0)"
+     class="row misc-table">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <table class="player-table">
+      <tr>
+        <th class="formation-misc-background pos-header-with-icons" colspan="2">
+          Pre Contract
+          <span *ngIf="!fromOverview" class="add-btn-div">
+            <i class="pi pi-plus-circle misc-table-btn" (click)="addPlayer('precontract')"></i>
+          </span>
+        </th>
+      </tr>
+      <ng-container *ngIf="preContractList != undefined && preContractList.length > 0">
+        <tr *ngFor="let p of preContractList">
+          <td class="pos-row">{{p.position}}</td>
+          <td class="misc-player-row">{{p.player}}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
+
+<!-- PLAYER OF THE YEAR -->
+<ng-container *ngIf="finishedSeason">
+  <div class="row misc-table">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <table class="player-table">
+        <tr>
+          <th class="formation-misc-background pos-header" colspan="3">Player of the Year (10+ apps)</th>
+        </tr>
+        <tr>
+          <td class="misc-pos-row">{{bestPlayerPos}}</td>
+          <td class="award-player-row">{{seasonAwards.bestPlayer}}</td>
+          <td class="misc-rating-row">{{seasonAwards.bestPlayerRating}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- YOUNG PLAYER OF THE YEAR -->
+  <div class="row misc-table">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <table class="player-table">
+        <tr>
+          <th class="formation-misc-background pos-header" colspan="3">Young Player of the Year (under 23s; 10+ apps)</th>
+        </tr>
+        <tr *ngIf="!fromOverview">
+          <td *ngIf="bestYoungPlayer !== undefined" class="misc-pos-row">{{bestYoungPlayer.position}}</td>
+          <td *ngIf="bestYoungPlayer == undefined" class="misc-pos-row">-</td>
+          <td class="award-player-row">
+            <p-select class="awards-dropdown" [options]="squadToFilter" [(ngModel)]="bestYoungPlayer" [filter]="true"
+                        optionLabel="player" (onChange)="getBestYoungPlayer()"></p-select>
+          </td>
+          <td class="misc-rating-row">{{seasonAwards.bestYoungPlayerRating}}</td>
+        </tr>
+        <tr *ngIf="fromOverview">
+          <td class="misc-pos-row">{{bestYoungPlayer.position}}</td>
+          <td class="award-player-row">{{bestYoungPlayer.player}}</td>
+          <td class="misc-rating-row">{{seasonAwards.bestYoungPlayerRating}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GOLDEN BOOT -->
+  <div *ngIf="topScorer !== undefined" class="row misc-table">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <table class="player-table">
+        <tr>
+          <th class="formation-misc-background pos-header" colspan="3">Golden Boot</th>
+        </tr>
+        <tr>
+          <td *ngIf="topScorer !== undefined" class="misc-pos-row">{{topScorer.position}}</td>
+          <td *ngIf="topScorer == undefined" class="misc-pos-row">-</td>
+          <td class="award-player-row">{{topScorer.player}}</td>
+          <td class="misc-rating-row">{{topScorer.goals}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- BEST PLAYMAKER -->
+  <div class="row misc-table">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <table class="player-table">
+        <tr>
+          <th class="formation-misc-background pos-header" colspan="3">Best Playmaker</th>
+        </tr>
+        <tr *ngIf="!fromOverview">
+          <td *ngIf="bestPlaymaker !== undefined" class="misc-pos-row">{{bestPlaymaker.position}}</td>
+          <td *ngIf="bestPlaymaker == undefined" class="misc-pos-row">-</td>
+          <td class="award-player-row">
+            <p-select class="awards-dropdown" [options]="squadToFilter" [(ngModel)]="bestPlaymaker" [filter]="true"
+                        optionLabel="player" (onChange)="getBestPlaymaker()"></p-select>
+          </td>
+          <td class="misc-rating-row">
+            <p-inputnumber class="award-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="seasonAwards.bestPlaymakerAssists"
+                           [min]="0" (onInput)="setAwards()"></p-inputnumber>
+          </td>
+        </tr>
+        <tr *ngIf="fromOverview">
+          <td class="misc-pos-row">{{bestPlaymaker.position}}</td>
+          <td class="award-player-row">{{bestPlaymaker.player}}</td>
+          <td class="misc-rating-row">{{seasonAwards.bestPlaymakerAssists}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</ng-container>

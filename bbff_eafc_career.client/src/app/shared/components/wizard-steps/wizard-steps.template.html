@@ -1,0 +1,12 @@
+<div class="wizard-steps">
+  <ng-container *ngFor="let step of steps; let i = index; let last = last">
+    <div class="wizard-step">
+      <div class="wizard-step-circle" [ngClass]="'step-' + stepState(i)">
+        <span *ngIf="stepState(i) == 'done'">&#10003;</span>
+        <span *ngIf="stepState(i) != 'done'">{{i + 1}}</span>
+      </div>
+      <div class="wizard-step-label" [class.wizard-step-label-current]="stepState(i) == 'current'">{{step}}</div>
+    </div>
+    <div *ngIf="!last" class="wizard-step-line" [ngClass]="stepState(i) == 'done' ? 'line-done' : 'line-upcoming'"></div>
+  </ng-container>
+</div>

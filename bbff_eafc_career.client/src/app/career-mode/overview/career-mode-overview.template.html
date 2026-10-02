@@ -1,0 +1,102 @@
+<h1 class="header">Overview</h1>
+<hr />
+
+<div *ngIf="loading" class="header">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+<div *ngIf="!loading">
+  <p-table [value]="overviewRows" [paginator]="true" [rows]="15" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Year</th>
+        <th>Team</th>
+        <th class="cmo-table-border">League</th>
+        <th class="cmo-table-cell-centre">GP</th>
+        <th class="cmo-table-cell-centre">W</th>
+        <th class="cmo-table-cell-centre">D</th>
+        <th class="cmo-table-cell-centre">L</th>
+        <th class="cmo-table-cell-centre">GF</th>
+        <th class="cmo-table-cell-centre">GA</th>
+        <th class="cmo-table-cell-centre cmo-table-border">GD</th>
+        <th class="cmo-table-cell-centre cmo-table-border">League Pos</th>
+        <th>Cup Progress</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-overview>
+      <tr class="overview-data-table">
+        <td>
+          <span *ngIf="overview.year <= 15">Year {{overview.year}}</span>
+          <span *ngIf="overview.year > 15">International</span>
+        </td>
+        <td>
+          <div class="overview-team-card">
+            <img *ngIf="overview.teamImagePath" src="{{overview.teamImagePath}}" alt="{{overview.team}}" class="overview-team-crest">
+            <span class="overview-team-name">{{overview.team}}</span>
+            <team-shirt [primary]="overview.primaryColour" [secondary]="overview.secondaryColour" [tertiary]="overview.tertiaryColour" [teamName]="overview.team" [size]="26"></team-shirt>
+          </div>
+        </td>
+        <td class="cmo-table-border">{{overview.league}}</td>
+        <td class="cmo-table-cell-centre">{{(overview.gamesPlayed == 0 ? '-' : overview.gamesPlayed)}}</td>
+        <td class="cmo-table-cell-centre">{{(overview.gamesPlayed == 0 ? '-' : overview.wins)}}</td>
+        <td class="cmo-table-cell-centre">{{(overview.gamesPlayed == 0 ? '-' : overview.draws)}}</td>
+        <td class="cmo-table-cell-centre">{{(overview.gamesPlayed == 0 ? '-' : overview.losses)}}</td>
+        <td class="cmo-table-cell-centre">{{(overview.gamesPlayed == 0 ? '-' : overview.goalsScored)}}</td>
+        <td class="cmo-table-cell-centre">{{(overview.gamesPlayed == 0 ? '-' : overview.goalsAgainst)}}</td>
+        <td class="cmo-table-cell-centre cmo-table-border">
+          <span *ngIf="overview.goalDifference > 0">+</span>
+          {{(overview.goalsScored == 0 && overview.goalsAgainst == 0 ? '-' : overview.goalDifference)}}
+        </td>
+        <td class="cmo-table-cell-centre cmo-table-border">
+          {{(overview.leaguePos == 0 ? '-' : overview.leaguePosDisplay)}}
+          <i *ngIf="overview.leaguePos == 1" class="fa-solid fa-trophy first-place"></i>
+          <i *ngIf="overview.leaguePos == 2" class="fa-solid fa-trophy second-place"></i>
+          <i *ngIf="overview.leaguePos == 3" class="fa-solid fa-trophy third-place"></i>
+        </td>
+        <td>
+          <i *ngFor="let first of overview.cupWinners" class="fa-solid fa-trophy first-place"></i>
+          <i *ngFor="let second of overview.cupRunnersUp" class="fa-solid fa-trophy second-place"></i>
+          <i *ngIf="overview.cups.length > 0" class="fa-solid fa-circle-info" pTooltip="{{overview.cupTooltip}}" tooltipPosition="right"
+             [style.margin-left]="overview.cupWinners.length > 0 || overview.cupRunnersUp.length > 0 ? '0.5rem' : '0'"></i>
+          <span *ngIf="overview.cups.length == 0">-</span>
+        </td>
+        <td>
+          <span *ngIf="overview.viewSeasonHistory !== undefined && overview.viewSeasonHistory">
+            <i class="fa-solid fa-eye icon-cursor" pTooltip="View Season History" tooltipPosition="left" (click)="viewSeasonHistory(overview.year)"></i>
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td class="cmo-table-cell-centre cmo-table-border" colspan="3">Totals</td>
+        <td class="cmo-table-cell-centre">{{totalRow.gamesPlayed}}</td>
+        <td class="cmo-table-cell-centre">{{totalRow.wins}}</td>
+        <td class="cmo-table-cell-centre">{{totalRow.draws}}</td>
+        <td class="cmo-table-cell-centre">{{totalRow.losses}}</td>
+        <td class="cmo-table-cell-centre">{{totalRow.goalsScored}}</td>
+        <td class="cmo-table-cell-centre">{{totalRow.goalsAgainst}}</td>
+        <td class="cmo-table-cell-centre cmo-table-border">
+          <span *ngIf="totalRow.goalDifference !== undefined && totalRow.goalDifference > 0">+</span>
+          {{totalRow.goalDifference}}
+        </td>
+        <td class="cmo-table-cell-centre cmo-table-border">
+          <span *ngIf="totalRow.leagueWins == undefined || totalRow.leagueWins == 0">-</span>
+          <span *ngIf="totalRow.leagueWins !== undefined && totalRow.leagueWins > 0">
+            <i class="fa-solid fa-trophy first-place"></i>
+            x{{totalRow.leagueWins}}
+          </span>
+        </td>
+        <td>
+          <span *ngIf="totalRow.cupWins == undefined || totalRow.cupWins == 0">-</span>
+          <span *ngIf="totalRow.cupWins !== undefined && totalRow.cupWins > 0">
+            <i class="fa-solid fa-trophy first-place"></i>
+            x{{totalRow.cupWins}}
+          </span>
+        </td>
+        <td>-</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

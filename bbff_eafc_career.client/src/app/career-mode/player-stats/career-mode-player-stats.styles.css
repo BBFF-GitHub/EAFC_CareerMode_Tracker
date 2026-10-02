@@ -1,0 +1,107 @@
+.atps-div {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.atps-table-avatar-cell {
+  width: 3% !important;
+}
+
+.atps-table-border {
+  border-right: 1px solid #dee2e6 !important;
+}
+
+.atps-table-cell-centre {
+  text-align: center !important;
+}
+
+.atps-table-player-cell {
+  width: 17%;
+}
+
+.atps-table-player-header {
+  width: 20%;
+}
+
+.atps-table-pos-cell {
+  width: 9% !important;
+}
+
+.atps-table-stat-cell {
+  width: 2.1%;
+}
+
+.atps-table-total-cell {
+  text-align: center !important;
+  font-weight: bold !important;
+  width: 4%;
+}
+
+.atps-table-total-header {
+  width: 8%;
+}
+
+.atps-table-year-header {
+  width: 4.2%;
+}
+
+.cap-img {
+  width: 18px;
+  filter: invert(100%) sepia(100%) saturate(100%) hue-rotate(90deg) brightness(100%) contrast(100%);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  .cap-img:hover {
+    filter: invert(91%) sepia(21%) saturate(6903%) hue-rotate(81deg) brightness(93%) contrast(103%);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+.fa-futbol {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  .fa-futbol:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+.header {
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.lower-font {
+  font-size: 14px;
+}
+
+.player-table-data {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+::ng-deep .p-avatar-circle img {
+  border: 1px solid #06421f;
+  border-radius: 50%;
+}
+
+::ng-deep .atps-table-pos-cell > p-tag > .p-tag {
+  font-size: 1rem !important;
+}
+
+  ::ng-deep .atps-table-pos-cell > p-tag > .p-tag.p-tag-rounded {
+    width: 4rem !important;
+  }
+
+::ng-deep .pi-filter-icon, ::ng-deep .p-sortable-column-icon {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  ::ng-deep .pi-filter-icon:hover, ::ng-deep .p-sortable-column-icon:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }

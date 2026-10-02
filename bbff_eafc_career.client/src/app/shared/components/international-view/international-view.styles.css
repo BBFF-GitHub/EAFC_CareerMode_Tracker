@@ -1,0 +1,622 @@
+.action-icon {
+  font-size: 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.action-icon:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.add-fixture-btn {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  .add-fixture-btn:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+.country-select-div {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.current-season-padding {
+  margin-bottom: 0.9rem;
+}
+
+.current-season-header-strip {
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 3px solid #06421F;
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 56px;
+  border-radius: 4px 4px 0 0;
+}
+
+.header-crest {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.header-team-name {
+  font-weight: bold;
+  font-size: 25px;
+  padding: 1rem;
+  color: #14201A;
+  white-space: nowrap;
+}
+
+.header-league-year {
+  font-size: 16px;
+  padding: 2rem;
+  color: #5B655F;
+  white-space: nowrap;
+}
+
+.header-spacer {
+  flex-grow: 1;
+}
+
+.header-icon-btn {
+  font-size: 1.3rem !important;
+  cursor: pointer;
+  color: #5B655F;
+  transition: color 0.2s;
+}
+
+.header-icon-btn:hover {
+  color: #06421F;
+}
+
+.header-icon-danger {
+  color: #B3312C;
+}
+
+.header-icon-danger:hover {
+  color: #8C2018;
+}
+
+.header-icon-save {
+  color: #06421F;
+}
+
+.header-divider {
+  width: 1px;
+  height: 24px;
+  background: #E4E4E4;
+}
+
+.header-save-label {
+  font-size: 16px;
+  padding: 1rem;
+  color: #7A8079;
+  white-space: nowrap;
+}
+
+.wizard-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.wizard-title {
+  margin: 0;
+  text-align: center;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: #14201A;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.picker-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #DCDACF;
+  background: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5B655F;
+  flex-shrink: 0;
+}
+
+.picker-arrow:hover {
+  border-color: #06421F;
+  color: #06421F;
+}
+
+.picker-card {
+  width: 260px;
+  padding: 28px;
+  background: #F7F6F1;
+  border: 1px solid #DCDACF;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 140px;
+  justify-content: center;
+}
+
+.picker-flag {
+  max-height: 100px;
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.picker-team-name {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #14201A;
+  text-align: center;
+}
+
+.picker-select {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+::ng-deep .picker-select .p-select {
+  width: 100%;
+}
+
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ECEAE3;
+  padding-top: 24px;
+}
+
+.wizard-actions-right {
+  display: flex;
+  gap: 12px;
+}
+
+.wizard-btn {
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.wizard-btn-primary {
+  background: #06421F;
+  color: #FFFFFF;
+  border-color: #06421F;
+}
+
+.wizard-btn-primary:hover:not(:disabled) {
+  background: #052E15;
+}
+
+.wizard-btn-primary:disabled {
+  background: #B9C4BC;
+  border-color: #B9C4BC;
+  cursor: not-allowed;
+}
+
+.wizard-btn-secondary {
+  background: #FFFFFF;
+  color: #14201A;
+  border-color: #DCDACF;
+}
+
+.wizard-btn-secondary:hover {
+  border-color: #06421F;
+  color: #06421F;
+}
+
+.cup-name-cell {
+  width: 60%;
+}
+
+.cup-progress-cell {
+  width: 40%;
+}
+
+.current-roster-avatar-cell {
+  width: 10%;
+}
+
+.current-roster-club-cell {
+  text-align: center;
+  width: 30%;
+}
+
+.current-roster-div {
+  width: 55%;
+  height: 79.7vh;
+}
+
+.current-roster-player-cell {
+  width: 35%;
+}
+
+.current-roster-position-cell {
+  text-align: center;
+  width: 15%;
+}
+
+.current-roster-position-header {
+  width: 55%;
+  text-align: center;
+}
+
+.delete-fixture-btn {
+  color: #FF0000;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.delete-fixture-btn:hover {
+  color: #A50000;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.fa-futbol {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.fa-futbol:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.fixture-select-dropdown {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.15rem 0.15rem;
+}
+
+.fixtures-list-cell {
+  width: 4%;
+  text-align: center;
+  color: #000000;
+}
+
+.fixtures-list-header {
+  width: 4%;
+  text-align: center;
+}
+
+.fixtures-list-table-data {
+  background-color: #FFFFFF;
+}
+
+.not-playable-game {
+  color: #CCCCCC;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.not-playable-game:hover {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.playable-game {
+  color: #07F468;
+}
+
+.playable-game:hover {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.fixtures-list-competition-cell {
+  width: 22%;
+}
+
+.fixtures-list-div {
+  margin-top: -1vh;
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.fixtures-list-move-cell {
+  width: 4%;
+}
+
+.fixtures-list-results-cell {
+  width: 30%;
+  text-align: center;
+}
+
+.fixtures-list-scores-cell {
+  width: 10%;
+  text-align: center;
+}
+
+.fixtures-list-venue-cell {
+  width: 5%;
+  text-align: center;
+}
+
+.fixtures-list-vs-cell {
+  width: 25%;
+}
+
+.formation-dropdown {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+:host-context(.app-dark) .formation-dropdown {
+  color: #334155 !important;
+}
+
+.formation-dropdown-div, .rest-of-page-div {
+  width: 45%;
+}
+
+.formation-header {
+  width: 55%;
+}
+
+.formation-header-div {
+  padding: 1.25rem;
+}
+
+.generate-results-cell {
+  width: 25%;
+  text-align: center;
+}
+
+.generate-results-cell-again {
+  width: 30%;
+  text-align: center;
+}
+
+.generate-results-cursor {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.generate-results-cursor:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.header {
+  text-align: center;
+}
+
+.info-icon {
+  margin-left: 10px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.info-icon:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.league-table-team-card {
+  border: unset !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  font-weight: bold;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.logo-img {
+  height: 1.5rem;
+}
+
+.move-btn {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  .move-btn:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+.results-team-card-left {
+  text-align: left;
+  padding-left: 0.2rem;
+  font-weight: bold;
+}
+
+.results-team-card-right {
+  text-align: right;
+  padding-right: 0.2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 1199px) {
+  .smaller-text {
+    font-size: 12px;
+  }
+}
+
+.squad-list-avatar-cell {
+  width: 10%;
+}
+
+.squad-list-player-cell {
+  width: 30%;
+}
+
+.squad-list-player-header {
+  width: 40%;
+  text-align: center;
+}
+
+.squad-list-stat-cell, .squad-list-status-header, .squad-list-tag-cell {
+  text-align: center;
+  width: 10%;
+}
+
+.squad-list-status-cell {
+  text-align: center;
+  width: 5%;
+}
+
+.squad-list-view-div {
+  margin-top: 1rem;
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.squad-visual {
+  font-size: 12px;
+  height: 67vh;
+  overflow-y: auto;
+}
+
+/* Same fix as current-season.styles.css: these widths have no
+   responsive override at any breakpoint, and Bootstrap's own
+   col-sm-12 on the squad-visual columns only activates at 576px+,
+   which is above most phones in portrait. */
+@media (max-width: 768px) {
+  .rest-of-page-div,
+  .formation-header,
+  .formation-dropdown-div {
+    width: 100%;
+  }
+
+  .squad-visual {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .squad-visual > div {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+.start-international-career-display {
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1px solid #000000;
+  width: 90%;
+}
+
+.stats-view-div {
+  margin-top: -1vh;
+  height: 70vh;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.top-scorer-goals-cell {
+  width: 15%;
+  text-align: center;
+}
+
+.top-scorer-index-cell {
+  width: 5%;
+}
+
+.top-scorer-player-cell {
+  width: 80%;
+}
+
+::ng-deep .country-select .p-select {
+  width: 100%;
+}
+
+::ng-deep .fixture-dropdown > .p-select {
+  width: 100% !important;
+}
+
+  ::ng-deep .fixture-dropdown > .p-select > .p-inputtext {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+  ::ng-deep .fixture-dropdown > .p-select > .p-select-panel .p-select-items .p-select-item {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+  ::ng-deep .fixture-dropdown > .p-select > .p-select-panel .p-select-header .p-select-filter {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+  ::ng-deep .fixture-dropdown > .p-select > .p-select-panel .p-select-items .p-select-empty-message {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+::ng-deep .p-avatar-circle img {
+  border: 1px solid #06421f;
+  border-radius: 50%;
+}
+
+.p-button.p-button-outlined {
+  background-color: #07F468;
+  color: #000000 !important;
+}
+
+  .p-button.p-button-outlined:hover {
+    background-color: #06421f;
+    color: #000000 !important;
+  }
+
+::ng-deep .p-contextmenu {
+  left: 100px !important;
+  top: 100px !important;
+}
+
+::ng-deep .p-select {
+  width: 55%;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #06421f;
+}
+
+::ng-deep .p-tabview-nav-link {
+  color: #06421f;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+  ::ng-deep .p-tabview-nav-link:hover {
+    color: #07F468;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+::ng-deep .squad-list-status-cell .p-tag-icon {
+    margin-left: auto;
+    margin-right: auto;
+}

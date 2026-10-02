@@ -1,0 +1,404 @@
+.wizard-shell {
+  font-family: 'Kanit', sans-serif;
+  color: #1E2622;
+}
+
+.loading-txt {
+  text-align: center;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.wizard-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wizard-title {
+  margin: 0;
+  text-align: center;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: #14201A;
+}
+
+.gender-cards {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+.gender-card {
+  flex: 1;
+  max-width: 220px;
+  padding: 32px 20px;
+  background: #F7F6F1;
+  border: 1px solid #DCDACF;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.gender-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(20, 32, 26, 0.08);
+  border-color: #06421F;
+}
+
+.gender-card-title {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #14201A;
+  text-align: center;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.picker-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #DCDACF;
+  background: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5B655F;
+  flex-shrink: 0;
+}
+
+.picker-arrow:hover {
+  border-color: #06421F;
+  color: #06421F;
+}
+
+.picker-card {
+  width: 260px;
+  padding: 28px;
+  background: #F7F6F1;
+  border: 1px solid #DCDACF;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 140px;
+  justify-content: center;
+}
+
+.picker-flag {
+  max-height: 100px;
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.picker-logo {
+  max-height: 90px;
+  max-width: 100%;
+}
+
+.picker-team-name {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #14201A;
+  text-align: center;
+}
+
+.picker-select {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+::ng-deep .picker-select .p-select {
+  width: 100%;
+}
+
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ECEAE3;
+  padding-top: 24px;
+}
+
+.wizard-actions-right {
+  display: flex;
+  gap: 12px;
+}
+
+.wizard-actions-full {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.wizard-btn {
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.wizard-btn-primary {
+  background: #06421F;
+  color: #FFFFFF;
+  border-color: #06421F;
+}
+
+.wizard-btn-primary:hover:not(:disabled) {
+  background: #052E15;
+}
+
+.wizard-btn-primary:disabled {
+  background: #B9C4BC;
+  border-color: #B9C4BC;
+  cursor: not-allowed;
+}
+
+.wizard-btn-secondary {
+  background: #FFFFFF;
+  color: #14201A;
+  border-color: #DCDACF;
+}
+
+.wizard-btn-secondary:hover {
+  border-color: #06421F;
+  color: #06421F;
+}
+
+.cup-columns {
+  display: flex;
+  gap: 32px;
+}
+
+.cup-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cup-column-label {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #5B655F;
+}
+
+.cup-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #14201A;
+}
+
+.cup-row-included {
+  background: #F7F6F1;
+}
+
+.cup-check {
+  color: #06421F;
+}
+
+.cup-row-optional {
+  background: #FFFFFF;
+  border: 1px solid #ECEAE3;
+  cursor: pointer;
+}
+
+.cup-error {
+  display: block;
+}
+
+.confirm-summary {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.confirm-summary-rows {
+  flex-grow: 1;
+}
+
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ECEAE3;
+}
+
+.confirm-label {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: #5B655F;
+}
+
+.confirm-value {
+  font-size: 15px;
+  color: #14201A;
+  font-weight: 600;
+}
+
+.confirm-cup {
+  font-size: 14px;
+  color: #14201A;
+}
+
+.confirm-cup-muted {
+  color: #9A9689;
+}
+
+@media (max-width: 600px) {
+  .cup-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .confirm-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .wizard-actions {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .wizard-actions-right {
+    justify-content: stretch;
+  }
+
+  .wizard-btn {
+    flex: 1;
+  }
+}
+
+/* Dark mode - PrimeNG's own dialog surface already switches automatically
+   (darkModeSelector is now configured), but everything hardcoded in this
+   file assumed a light surface and needs an explicit dark equivalent too. */
+:host-context(.app-dark) .wizard-title {
+  color:#EDEFEC !important;
+}
+
+:host-context(.app-dark) .picker-card {
+  background:#1B1F21 !important;
+  border-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .picker-team-name {
+  color:#EDEFEC !important;
+}
+
+:host-context(.app-dark) .picker-arrow {
+  background:#14171A !important;
+  border-color:#2A2E2B !important;
+  color:#9AA39C !important;
+}
+
+:host-context(.app-dark) .picker-arrow:hover {
+  border-color:#07F468 !important;
+  color:#07F468 !important;
+}
+
+:host-context(.app-dark) .wizard-actions {
+  border-top-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .wizard-btn-secondary {
+  background:#14171A !important;
+  color:#EDEFEC !important;
+  border-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .wizard-btn-secondary:hover {
+  border-color:#07F468 !important;
+  color:#07F468 !important;
+}
+
+:host-context(.app-dark) .wizard-btn-primary {
+  background:#07F468 !important;
+  color:#06110B !important;
+  border-color:#07F468 !important;
+}
+
+:host-context(.app-dark) .wizard-btn-primary:hover:not(:disabled) {
+  background:#06D65B !important;
+}
+
+:host-context(.app-dark) .wizard-btn-primary:disabled {
+  background:#3A423C !important;
+  border-color:#3A423C !important;
+  color:#6B756E !important;
+}
+
+:host-context(.app-dark) .cup-column-label {
+  color:#9AA39C !important;
+}
+
+:host-context(.app-dark) .cup-row {
+  color:#EDEFEC !important;
+}
+
+:host-context(.app-dark) .cup-row-included {
+  background:#1B1F21 !important;
+}
+
+:host-context(.app-dark) .cup-row-optional {
+  background:#14171A !important;
+  border-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .confirm-row {
+  border-bottom-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .confirm-label {
+  color:#9AA39C !important;
+}
+
+:host-context(.app-dark) .confirm-value, :host-context(.app-dark) .confirm-cup {
+  color:#EDEFEC !important;
+}
+
+:host-context(.app-dark) .confirm-cup-muted {
+  color:#6B756E !important;
+}
+
+:host-context(.app-dark) .gender-card {
+  background:#1B1F21 !important;
+  border-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .gender-card:hover {
+  border-color:#07F468 !important;
+}
+
+:host-context(.app-dark) .gender-card-title {
+  color:#EDEFEC !important;
+}

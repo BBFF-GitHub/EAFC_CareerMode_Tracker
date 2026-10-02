@@ -1,0 +1,116 @@
+<h1 class="header">Head-to-Head Stats</h1>
+<hr />
+
+<div *ngIf="loading" class="header">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+<div *ngIf="!loading">
+
+  <p-tabs value="0">
+    <p-tablist>
+      <p-tab value="0">Results vs Teams</p-tab>
+      <p-tab value="1">Goals vs Teams</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+      <p-tabpanel value="0">
+        <p-table [value]="teamResults" [paginator]="true" [rows]="8" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="h2h-team-table-team-header" colspan="2" [pSortableColumn]="'team'">
+                Team
+                <p-sortIcon [field]="'team'"></p-sortIcon>
+                <p-columnFilter type="text" field="team" display="menu"></p-columnFilter>
+              </th>
+              <th class="h2h-team-table-stats-gap-header" colspan="2"></th>
+              <th class="h2h-team-table-border h2h-team-table-plyd-stat-cell" [pSortableColumn]="'gamesPlayed'">
+                Played
+                <p-sortIcon [field]="'gamesPlayed'"></p-sortIcon>
+              </th>
+              <th class="h2h-team-table-gd-stat-cell" [pSortableColumn]="'goalDifference'">
+                GD
+                <p-sortIcon [field]="'goalDifference'"></p-sortIcon>
+              </th>
+              <th class="h2h-team-table-ppg-stat-cell" [pSortableColumn]="'avgPoints'">
+                Pts per Game
+                <p-sortIcon [field]="'avgPoints'"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-team>
+            <tr class="h2h-table-data">
+              <td class="h2h-team-table-logo-cell">
+                <img class="h2h-team-table-logo-img" src="{{team.teamImagePath}}" alt="{{team.team}}">
+              </td>
+              <td class="h2h-team-table-team-cell">
+                <div class="h2h-team-table-team-card" style="{{team.teamCssStyles}}">{{team.team}}</div>
+              </td>
+              <td class="h2h-team-table-border h2h-team-table-stats-gap-cell">
+                <div class="row">
+                  <span class="h2h-team-table-stats-visual-title">Results:</span>
+                  <span class="h2h-team-table-stats-visual">
+                    <p-meterGroup [value]="team.resultMeterObj" [max]="team.gamesPlayed" />
+                  </span>
+                </div>
+                <div class="row">
+                  <span class="h2h-team-table-stats-visual-title">Goals:</span>
+                  <span class="h2h-team-table-stats-visual">
+                    <p-meterGroup [value]="team.goalsMeterObj" [max]="team.goalsTotal" />
+                  </span>
+                </div>
+              </td>
+              <td class="view-more-cell">
+                <i class="fa-solid fa-eye view-more-icon" pTooltip="View More Details" tooltipPosition="left"></i>
+              </td>
+              <td class="h2h-team-table-border h2h-team-table-plyd-stat-cell">{{team.gamesPlayed}}</td>
+              <td *ngIf="team.goalDifference > 0" class="h2h-team-table-gd-stat-cell">+{{team.goalDifference}}</td>
+              <td *ngIf="team.goalDifference <= 0" class="h2h-team-table-gd-stat-cell">{{team.goalDifference}}</td>
+              <td class="h2h-team-table-ppg-stat-cell">{{team.avgPoints}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+      <p-tabpanel value="1">
+        <p-table [value]="playerGoalsList" [paginator]="true" [rows]="8" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="h2h-player-table-player-header" colspan="2" [pSortableColumn]="'playerName'">
+                Player
+                <p-sortIcon [field]="'playerName'"></p-sortIcon>
+                <p-columnFilter type="text" field="playerName" display="menu"></p-columnFilter>
+              </th>
+              <th class="h2h-player-table-border h2h-player-table-pos-cell" [pSortableColumn]="'posId'">
+                Position
+                <p-sortIcon [field]="'posId'"></p-sortIcon>
+                <p-columnFilter type="text" field="position" display="menu"></p-columnFilter>
+              </th>
+              <th class="h2h-player-table-goals-gap-header" colspan="2"></th>
+              <th class="h2h-team-table-border h2h-player-table-total-cell" [pSortableColumn]="'totalGoals'">
+                Total Goals
+                <p-sortIcon [field]="'totalGoals'"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-player>
+            <tr class="h2h-table-data">
+              <td class="h2h-player-table-avatar-cell">
+                <p-avatar image="{{player.playerImagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+              </td>
+              <td class="h2h-player-table-player-cell">{{player.playerName}}</td>
+              <td class="h2h-player-table-border h2h-player-table-pos-cell">
+                <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+              </td>
+              <td class="h2h-player-table-goals-gap-cell">
+                <p-meterGroup [value]="player.meterObj" [max]="maxGoals" />
+              </td>
+              <td class="view-more-cell">
+                <i class="fa-solid fa-eye view-more-icon" pTooltip="View More Details" tooltipPosition="left"></i>
+              </td>
+              <td class="h2h-team-table-border h2h-player-table-total-cell">{{player.totalGoals}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+</div>

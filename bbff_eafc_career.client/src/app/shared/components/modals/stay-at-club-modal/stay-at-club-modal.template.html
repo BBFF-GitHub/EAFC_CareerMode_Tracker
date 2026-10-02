@@ -1,0 +1,135 @@
+<div *ngIf="loading" class="loading-txt">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+
+<ng-container *ngIf="!loading">
+  <!-- Part 1 - Select League -->
+  <div *ngIf="stage == 1" class="row">
+    <h4 class="selection-title">Part 1 - Select League</h4>
+    <br />
+    <br />
+    <div class="row selection-div">
+      <table>
+        <tr>
+          <td class="nav-cell" rowspan="2">
+            <p-button *ngIf="filteredLeagues.length > 1" icon="fa-solid fa-chevron-left nav-arrow" [rounded]="true" [text]="true" severity="secondary"
+                      (click)="moveLeague(-1)" />
+          </td>
+          <td class="selection-cell">
+            <p *ngIf="filteredLeagues.length == 1">{{selectedLeague.league}}</p>
+            <p-select *ngIf="filteredLeagues.length > 1" [options]="filteredLeagues" [(ngModel)]="selectedLeague" [filter]="true"
+                        optionLabel="league"></p-select>
+          </td>
+          <td class="nav-cell" rowspan="2">
+            <p-button *ngIf="filteredLeagues.length > 1" icon="fa-solid fa-chevron-right nav-arrow" [rounded]="true" [text]="true" severity="secondary"
+                      (click)="moveLeague(1)" />
+          </td>
+        </tr>
+        <tr>
+          <td class="selection-img-cell">
+            <img *ngIf="selectedLeague !== undefined" class="selection-img" src="{{selectedLeague.imgPath}}" alt="{{selectedLeague.league}}">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <hr />
+    <div class="offset-lg-9 col-lg-3 offset-md-9 col-md-3 offset-sm-8 col-sm-4">
+      <p-button type="button" label="Next" class="action-btn p-button-outlined nav-btn-right" [disabled]="selectedLeague == undefined" (click)="nextStep(1)"></p-button>
+    </div>
+  </div>
+
+  <!-- Part 2 - Select Cup Competitions -->
+  <div *ngIf="stage == 2" class="row">
+    <h4 class="selection-title">Part 2 - Select Cup Competitions</h4>
+    <br />
+    <br />
+    <div class="row selection-div">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <b>Compulsory Cup Competitions</b>
+        <table class="col-lg-12 col-md-12 col-sm-12 compulsory-cups">
+          <tr *ngFor="let cup of compulsoryCups">
+            <td>{{cup.cupName}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <b>Optional Cup Competitions</b>
+        <table class="col-lg-12 col-md-12 col-sm-12 optional-cups">
+          <tr *ngFor="let cup of optionalCups">
+            <td class="cup-checkbox">
+              <p-checkbox value="cup" [value]="cup" [(ngModel)]="selectedOptionalCups" [inputId]="cup.cupName" (onChange)="validateCupSelection()"></p-checkbox>
+            </td>
+            <td class="cup-name">{{cup.cupName}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <hr />
+    <div class="col-lg-9 col-md-9 col-sm-8">
+      <p-message *ngIf="!validCupSelection" severity="error" text="Invalid Optional Cup selections!"></p-message>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-4">
+      <p-button type="button" label="Back" class="action-btn p-button-outlined nav-btn-left" (click)="previousStep(2)"></p-button>
+      <p-button type="button" label="Next" class="action-btn p-button-outlined nav-btn-right" [disabled]="!validCupSelection"
+              (click)="nextStep(2)"></p-button>
+    </div>
+  </div>
+
+  <!-- Part 3 - Confirm Choices -->
+  <div *ngIf="stage == 3" class="row">
+    <h4 class="selection-title">Part 3 - Confirm Choices</h4>
+    <br />
+    <br />
+    <div class="col-lg-12 col-md-12 col-sm-12 selection-div">
+      <table class="col-lg-12 col-md-12 col-sm-12">
+        <tr>
+          <td class="final-choice-header"><b>Country</b></td>
+          <td class="final-choice-value">{{selectedCountry}}</td>
+        </tr>
+        <tr>
+          <td class="final-choice-header"><b>Team</b></td>
+          <td class="final-choice-value">
+            <div class="team-card-new">
+              <team-shirt [primary]="currentTeamPrimary" [secondary]="currentTeamSecondary"
+                          [tertiary]="currentTeamTertiary" [teamName]="currentTeamName" [size]="40"></team-shirt>
+              <b>{{currentTeamName}}</b>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="final-choice-header"><b>League</b></td>
+          <td class="final-choice-value">{{selectedLeague.league}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="row selection-div">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <b>Compulsory Cup Competitions</b>
+        <table class="col-lg-12 col-md-12 col-sm-12 compulsory-cups">
+          <tr *ngFor="let cup of compulsoryCups">
+            <td>{{cup.cupName}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <b>Optional Cup Competitions</b>
+        <table *ngIf="selectedOptionalCups.length > 0" class="col-lg-12 col-md-12 col-sm-12 confirm-optional-cups">
+          <tr *ngFor="let cup of selectedOptionalCups">
+            <td>{{cup.cupName}}</td>
+          </tr>
+        </table>
+        <table *ngIf="selectedOptionalCups.length == 0" class="col-lg-12 col-md-12 col-sm-12 confirm-optional-cups">
+          <tr>
+            <td>N/A</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="offset-lg-9 col-lg-3 offset-md-9 col-md-3 offset-sm-8 col-sm-4">
+      <p-button type="button" label="Back" class="action-btn p-button-outlined nav-btn-left" (click)="previousStep(3)"></p-button>
+      <p-button type="button" label="Confirm" class="action-btn p-button-outlined nav-btn-right" (click)="finishSelection()"></p-button>
+    </div>
+  </div>
+</ng-container>

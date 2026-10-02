@@ -1,0 +1,53 @@
+<div class="row">
+  <p>Select the players you want to automatically include into your team, from the default squad list:</p>
+
+  <div *ngIf="loading" class="header">
+    <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+    <b class="loading">Loading...</b>
+  </div>
+  <div *ngIf="!loading">
+    <p-table [value]="playerImages" [(selection)]="selectedPlayerList" [paginator]="true" [rows]="8" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="pre-pop-table-centre-header">
+            <p-tableHeaderCheckbox />
+          </th>
+          <th></th>
+          <th>Player</th>
+          <th class="pre-pop-table-centre-header">Pos</th>
+          <th class="pre-pop-table-centre-header">Loaned In?</th>
+          <th class="pre-pop-table-centre-header">Loaned Out?</th>
+          <th class="pre-pop-table-centre-header">Retiring?</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-player>
+        <tr class="pre-pop-table-row">
+          <td class="pre-pop-table-checkbox-header">
+            <p-tableCheckbox [value]="player" />
+          </td>
+          <td class="pre-pop-table-avatar-cell">
+            <p-avatar image="{{player.photo}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+          </td>
+          <td class="pre-pop-table-player-header">{{player.name}}</td>
+          <td class="pre-pop-table-pos-header">
+            <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+          </td>
+          <td class="pre-pop-table-checkbox-header">
+            <p-checkbox [(ngModel)]="player.loanedIn" [binary]="true" />
+          </td>
+          <td class="pre-pop-table-checkbox-header">
+            <p-checkbox [(ngModel)]="player.loanedOut" [binary]="true" />
+          </td>
+          <td class="pre-pop-table-checkbox-header">
+            <p-checkbox [(ngModel)]="player.retiring" [binary]="true" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>
+<hr />
+<p-button type="button" label="Confirm" class="action-btn nav-btn-right p-button-outlined" [disabled]="selectedPlayerList == undefined || selectedPlayerList.length == 0"
+          (click)="addSquad()"></p-button>

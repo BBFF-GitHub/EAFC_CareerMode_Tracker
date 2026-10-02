@@ -1,0 +1,29 @@
+.loading-spinner {
+  display: block;
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 2.5rem;
+}
+
+.p-button {
+  background-color: #07F468;
+  color: #000000 !important;
+}
+
+  .p-button:hover {
+    background-color: #06421f;
+    color: #000000 !important;
+  }
+
+.remove-player-label {
+  font-weight: bold;
+  padding-top: 0.8rem;
+}
+
+::ng-deep .remove-player-amount .p-inputnumber .p-inputnumber-input {
+  text-align: unset !important;
+}
+
+::ng-deep .remove-player-field .p-select {
+  width: 100% !important;
+}

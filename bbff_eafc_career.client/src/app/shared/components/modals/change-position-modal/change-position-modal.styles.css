@@ -1,0 +1,11 @@
+.action-btn {
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  display: block;
+  width: 10vw;
+}
+
+.position-label {
+  font-weight: bold;
+  padding-top: 0.8rem;
+}

@@ -1,0 +1,6 @@
+@EAFC_CareerTracker.Server_HostAddress = http://localhost:5008
+
+GET {{EAFC_CareerTracker.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

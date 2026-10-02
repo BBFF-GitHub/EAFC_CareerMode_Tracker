@@ -1,0 +1,43 @@
+.dashboard-tile {
+  margin-bottom: 0.5rem;
+}
+
+.logo-div {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+
+.logo-img {
+  height: 2.3rem;
+}
+
+.tile-div-team {
+  margin: 0px 5px 5px 5px
+}
+
+.tile-header {
+  font-weight: bold;
+}
+
+.tile-header-team {
+  text-align: center;
+  margin-bottom: 0.6rem !important;
+}
+
+.tile-header-team-small {
+  text-align: center;
+  margin-bottom: 0.3rem !important;
+}
+
+.tile-team-total {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  margin-top: 0.14rem;
+}
+
+.value-div {
+  width: 50%;
+  float: right;
+}

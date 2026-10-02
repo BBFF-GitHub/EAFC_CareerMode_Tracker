@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <label class="new-career-label">Career Mode Name</label>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <input class="new-career-textbox" [class.ng-invalid]="!validName" [class.ng-dirty]="!validName" type="text" pInputText
+           [(ngModel)]="saveName" (keyup)="validateName()" />
+    <small *ngIf="!validName" class="p-error block">Career Mode Name is not valid! Please change...</small>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <label class="new-career-label">Currency</label>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <ng-container *ngFor="let curr of currencies">
+      <p-badge *ngIf="curr.value == saveCurrency.value" class="currency-selected-badge" [value]="curr.value" badgeSize="xlarge" severity="success"
+               (click)="setCurrency(curr.value)"></p-badge>
+      <p-badge *ngIf="curr.value != saveCurrency.value" class="currency-badge" [value]="curr.value" badgeSize="xlarge" severity="info"
+               (click)="setCurrency(curr.value)"></p-badge>
+    </ng-container>
+    <span *ngIf="validCurrency" class="currency-text">Currency: <b>{{saveCurrency.name}}</b></span>
+    <div class="row">
+      <small *ngIf="!validCurrency" class="p-error block">Please select a currency...</small>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<p-button type="button" label="Start New Career Mode" class="save-btn p-button-outlined" [disabled]="!validName || !validCurrency"
+        (click)="saveNewCareer()"></p-button>

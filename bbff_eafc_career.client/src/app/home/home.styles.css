@@ -1,0 +1,206 @@
+.home-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background: radial-gradient(120% 100% at 78% 15%, #10231A 0%, #0A0C0B 55%, #060706 100%);
+  color: #EDEFEC;
+  font-family: 'Kanit', sans-serif;
+  overflow: hidden;
+}
+
+.home-hero {
+  flex: 0 0 58%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 0;
+  box-sizing: border-box;
+}
+
+.home-hero-img {
+  max-width: 85%;
+  max-height: 85vh;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
+}
+
+.home-hero-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.home-kit-svg {
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
+}
+
+.home-hero-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.home-hero-player-name {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.home-hero-club-name {
+  font-size: 14px;
+  color: #9AA39C;
+}
+
+.home-content {
+  flex: 1 1 42%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: 0 72px 0 24px;
+  box-sizing: border-box;
+}
+
+.home-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-badge {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 4px;
+  color: #07F468;
+}
+
+.home-title {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+}
+
+.home-divider {
+  width: 64px;
+  height: 3px;
+  background: #07F468;
+  margin-top: 6px;
+}
+
+.home-credits {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-credit-line {
+  margin: 0;
+  font-size: 14px;
+  color: #9AA39C;
+}
+
+.home-credit-muted {
+  color: #6B756E;
+}
+
+.home-import-link {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6B756E;
+  text-decoration: underline;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.home-import-link:hover {
+  color: #07F468;
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+  width: 320px;
+}
+
+::ng-deep .home-btn .p-button {
+  width: 100%;
+  height: 52px;
+  border-radius: 8px;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+}
+
+::ng-deep .home-btn-primary .p-button {
+  background: #07F468;
+  border-color: #07F468;
+  color: #06110B;
+}
+
+::ng-deep .home-btn-primary .p-button:hover {
+  background: #06D65B;
+  border-color: #06D65B;
+  color: #06110B;
+}
+
+::ng-deep .home-btn-secondary .p-button {
+  background: transparent;
+  border: 1px solid #3A423C;
+  color: #EDEFEC;
+}
+
+::ng-deep .home-btn-secondary .p-button:hover {
+  background: rgba(237, 239, 236, 0.06);
+  border-color: #3A423C;
+  color: #EDEFEC;
+}
+
+@media (max-width: 900px) {
+  .home-layout {
+    flex-direction: column;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .home-hero {
+    flex: 0 0 auto;
+    padding: 48px 20px 0 20px;
+  }
+
+  .home-hero-img {
+    max-width: 70%;
+    max-height: 40vh;
+  }
+
+  .home-kit-svg {
+    width: 190px;
+    height: auto;
+  }
+
+  .home-content {
+    flex: 1 1 auto;
+    padding: 20px 28px 40px 28px;
+    gap: 20px;
+  }
+
+  .home-title {
+    font-size: 32px;
+  }
+
+  .home-actions {
+    width: 100%;
+  }
+}

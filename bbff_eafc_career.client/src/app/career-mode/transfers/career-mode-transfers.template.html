@@ -1,0 +1,87 @@
+<h1 class="header">Transfer Summary</h1>
+<hr />
+
+<div *ngIf="loading" class="header">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+<div *ngIf="!loading">
+  <p-tabs value="0">
+    <p-tablist>
+      <p-tab value="0">Transfer Log</p-tab>
+      <p-tab value="1">Money Log</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+      <p-tabpanel value="0">
+        <p-table [value]="transferLog" [paginator]="true" [rows]="8" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="transfer-table-year-cell">Year</th>
+              <th class="transfer-table-border transfer-table-date-cell" [pSortableColumn]="'date'">
+                Date
+                <p-sortIcon [field]="'date'"></p-sortIcon>
+              </th>
+              <th class="transfer-table-cell-centre transfer-table-border transfer-table-status-cell">In/Out</th>
+              <th class="transfer-table-cell-centre transfer-table-border transfer-table-player-header" colspan="2">Player</th>
+              <th class="transfer-table-team-cell" [pSortableColumn]="'fromClub'">
+                From Club
+                <p-sortIcon [field]="'fromClub'"></p-sortIcon>
+              </th>
+              <th class="transfer-table-border transfer-table-team-cell" [pSortableColumn]="'toClub'">
+                To Club
+                <p-sortIcon [field]="'toClub'"></p-sortIcon>
+              </th>
+              <th class="transfer-table-fee-cell" [pSortableColumn]="'fee'">
+                Fee
+                <p-sortIcon [field]="'fee'"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-transfer>
+            <tr class="transfer-table-data">
+              <td class="transfer-table-year-cell">Year {{transfer.year}}</td>
+              <td class="transfer-table-border transfer-table-date-cell">{{transfer.date}}</td>
+              <td class="transfer-table-cell-centre transfer-table-border transfer-table-status-cell">
+                <p-tag styleClass="mr-2" value="{{transfer.status}}" [severity]="transfer.statusSeverity" [rounded]="true"></p-tag>
+              </td>
+              <td class="transfer-table-avatar-cell">
+                <p-avatar image="{{transfer.playerImagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+              </td>
+              <td class="transfer-table-border transfer-table-player-cell">{{transfer.player}}</td>
+              <td class="transfer-table-team-cell">{{transfer.fromClub}}</td>
+              <td class="transfer-table-border transfer-table-team-cell">{{transfer.toClub}}</td>
+              <td class="transfer-table-fee-cell">{{(transfer.feeDisplay.startsWith("Loan") ? '' : currency)}}{{transfer.feeDisplay}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+      <p-tabpanel value="1">
+        <div class="row">
+          <div class="col-lg-7 col-md-7 col-sm-7">
+            <p-chart type="bar" [data]="moneyLogChartData" [options]="moneyLogChartOptions" width="99%" height="70.4vh"></p-chart>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <p-table [value]="moneyLog" styleClass="p-datatable-sm">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th class="money-table-year-cell">Year</th>
+                  <th class="money-table-transfer-cell transfer-table-cell-centre">Total Spent</th>
+                  <th class="money-table-transfer-cell transfer-table-cell-centre">Total Received</th>
+                  <th class="money-table-transfer-cell transfer-table-cell-centre">Total Profit</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-money>
+                <tr class="transfer-table-data">
+                  <td class="money-table-year-cell">Year {{money.year}}</td>
+                  <td class="money-table-transfer-cell transfer-table-cell-centre">{{currency}}{{money.spentDisplay}}</td>
+                  <td class="money-table-transfer-cell transfer-table-cell-centre">{{currency}}{{money.receivedDisplay}}</td>
+                  <td class="money-table-transfer-cell transfer-table-cell-centre">{{currency}}{{money.profitDisplay}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+</div>

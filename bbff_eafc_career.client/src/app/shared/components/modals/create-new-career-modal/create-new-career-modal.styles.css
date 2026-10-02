@@ -1,0 +1,35 @@
+.currency-badge {
+  margin-right: 0.5vh;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.currency-selected-badge {
+  margin-right: 0.5vh;
+  cursor: default;
+}
+
+.currency-text {
+  margin-left: 1vh;
+}
+
+::ng-deep .currency-badge .p-badge:hover {
+  color: #000000;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.new-career-label {
+  font-weight: bold;
+  padding-top: 0.8rem;
+}
+
+.new-career-textbox {
+  width: 100%;
+}
+
+.save-btn {
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  display: block;
+  width: 15vw;
+}

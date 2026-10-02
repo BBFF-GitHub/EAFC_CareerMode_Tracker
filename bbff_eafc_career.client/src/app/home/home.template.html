@@ -1,0 +1,81 @@
+<div class="home-layout">
+
+  <div class="home-hero">
+
+    <ng-container *ngIf="hero; else coverStarHero">
+      <div class="home-hero-figure">
+        <svg width="300" height="612" viewBox="0 0 220 450" class="home-kit-svg">
+          <rect x="118" y="300" width="34" height="110" rx="14" fill="#7A8079" />
+          <rect x="110" y="384" width="42" height="30" [attr.fill]="hero.secondaryColour" />
+          <rect x="110" y="414" width="42" height="18" rx="6" fill="#141514" />
+
+          <rect x="68" y="300" width="34" height="110" rx="14" fill="#7A8079" />
+          <rect x="64" y="384" width="42" height="30" [attr.fill]="hero.secondaryColour" />
+          <rect x="64" y="414" width="42" height="18" rx="6" fill="#141514" />
+
+          <polygon points="70,230 150,230 158,300 118,300 110,282 102,300 62,300" fill="#181B19" [attr.stroke]="hero.tertiaryColour" stroke-width="1.5" />
+          <rect x="66" y="238" width="10" height="50" [attr.fill]="hero.secondaryColour" opacity="0.85" />
+          <rect x="144" y="238" width="10" height="50" [attr.fill]="hero.secondaryColour" opacity="0.85" />
+
+          <polygon points="160,110 185,116 180,160 155,150" [attr.fill]="hero.secondaryColour" />
+          <rect x="162" y="148" width="24" height="86" rx="12" fill="#7A8079" />
+
+          <polygon points="60,110 95,100 110,120 125,100 160,110 170,182 150,232 70,232 50,182"
+                    [attr.fill]="hero.primaryColour" [attr.stroke]="hero.tertiaryColour" stroke-width="2" stroke-linejoin="round" />
+          <polygon points="95,100 110,120 125,100 118,94 110,104 102,94" [attr.fill]="hero.secondaryColour" />
+
+          <polygon points="60,110 35,116 40,160 65,150" [attr.fill]="hero.secondaryColour" />
+          <rect x="34" y="148" width="24" height="86" rx="12" fill="#7A8079" />
+
+          <rect x="100" y="88" width="20" height="18" fill="#7A8079" />
+
+          <defs>
+            <clipPath id="home-hero-headshot-clip">
+              <circle cx="110" cy="50" r="44" />
+            </clipPath>
+          </defs>
+          <circle cx="110" cy="50" r="44" fill="#2A2E2B" [attr.stroke]="hero.secondaryColour" stroke-width="3" />
+          <image *ngIf="hero.playerImagePath" [attr.href]="hero.playerImagePath" x="66" y="6" width="88" height="88"
+                 preserveAspectRatio="xMidYMid slice" clip-path="url(#home-hero-headshot-clip)"></image>
+        </svg>
+
+        <div class="home-hero-caption">
+          <div class="home-hero-player-name">{{hero.playerName}}</div>
+          <div class="home-hero-club-name">{{hero.clubName}}</div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #coverStarHero>
+      <img class="home-hero-img" src="{{chosenStar.path}}" alt="{{chosenStar.name}}" />
+    </ng-template>
+
+  </div>
+
+  <div class="home-content">
+    <div class="home-heading">
+      <div class="home-badge">EAFC</div>
+      <h1 class="home-title">Career Mode<br class="home-title-break">Tracker</h1>
+      <div class="home-divider"></div>
+    </div>
+
+    <div class="home-credits">
+      <p class="home-credit-line">Designed by Dan Bennett</p>
+      <p class="home-credit-line home-credit-muted">v1.0&nbsp;&middot;&nbsp;Last updated 26th September 2026</p>
+      <a class="home-import-link" *ngIf="showImportPlayerDataLink" (click)="openImportPlayerData()">Import Player Data</a>
+    </div>
+
+    <div class="home-actions">
+      <p-button type="button" label="Start New Career" styleClass="home-btn home-btn-primary" (click)="createNewCareer()"></p-button>
+      <p-button type="button" label="Load Existing Career" styleClass="home-btn home-btn-secondary" (click)="loadExistingCareer()"></p-button>
+    </div>
+  </div>
+
+</div>
+
+<p-dialog header="{{modalHeader}}" [(visible)]="showModal" [modal]="true" [style]="{width: '50vw'}"
+          [draggable]="false" [resizable]="false">
+  <create-new-career-modal *ngIf="modalMode == 'create-new-career-modal'"></create-new-career-modal>
+  <load-existing-career-modal *ngIf="modalMode == 'load-existing-career-modal'"></load-existing-career-modal>
+  <import-player-data-modal *ngIf="modalMode == 'import-player-data-modal'"></import-player-data-modal>
+</p-dialog>

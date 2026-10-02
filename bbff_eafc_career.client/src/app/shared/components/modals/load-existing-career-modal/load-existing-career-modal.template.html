@@ -1,0 +1,39 @@
+<div *ngIf="loading" style="text-align: center;">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+
+<div *ngIf="!loading">
+  <!-- Table to show when there are Saved Games found -->
+  <p-table *ngIf="savedGames.length > 0" [value]="savedGames" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th [pSortableColumn]="'name'">
+          Save Name
+          <p-sortIcon [field]="'name'"></p-sortIcon>
+          <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+        <th>Current Season</th>
+        <th [pSortableColumn]="'lastSaved'">
+          Last Saved
+          <p-sortIcon [field]="'lastSaved'"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-save>
+      <tr>
+        <td class="open-career-link"><b (click)="openCareerMode(save.id)">{{save.name}}</b></td>
+        <td>{{save.currentSeason}}</td>
+        <td>{{save.lastSaved}}</td>
+        <td class="delete-cell">
+          <p-button icon="fa-solid fa-trash delete-btn" [rounded]="true" [text]="true" severity="danger" (click)="deleteCareerMode(save.id)" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Table to show when there are no Saved Games found -->
+  <div *ngIf="savedGames.length == 0" class="no-games-found-div">
+    <b>No Saved Games found!</b>
+  </div>
+</div>

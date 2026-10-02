@@ -1,0 +1,411 @@
+.action-row {
+  width: 10%;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.add-btn-div {
+  position: static;
+  margin-left: 0.3rem;
+  margin-top: 0.1rem;
+  cursor: pointer;
+}
+
+.award-player-row {
+  width: 60%;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.empty-row {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.formation-row {
+  --bs-gutter-x: 0.1rem !important;
+}
+
+.formation-table, .misc-table {
+  margin-bottom: 0.5rem;
+}
+
+.key-row {
+  text-align: center;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.loaned-in-row {
+  color: #00B0F0;
+}
+
+.misc-player-row {
+  width: 65%;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.misc-pos-row {
+  width: 15%;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.misc-rating-row {
+  width: 25%;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+  text-align: center;
+}
+
+.misc-table-btn {
+  color: #000000;
+  font-size: 12px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.misc-table-btn:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.move-btn {
+    font-size: small;
+    font-size: small;
+}
+
+.player-action-row {
+  width: 65%;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.player-drag-row {
+  width: 65%;
+  border: 1px solid black;
+  background-color: #FFFFFF !important;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  padding-left: 0.2rem;
+}
+
+.player-row {
+  width: 65%;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+  background-color: #FFFFFF !important;
+}
+
+.player-table, .player-table-drag {
+  width: 100%;
+}
+
+.player-table-btn {
+  color: #FFFFFF;
+  font-size: 12px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.player-table-btn:hover {
+  color: #07F468;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.pos-header-with-icons {
+  text-align: center;
+  padding-left: 1rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border: 1px solid black;
+}
+
+.pos-header {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.pos-drag-row {
+  width: 25%;
+  border: 1px solid black;
+  background-color: #FFFFFF !important;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  text-align: center;
+}
+
+.pos-row {
+  width: 25%;
+  border: 1px solid black;
+  padding-left: 0.2rem;
+}
+
+.reorder-btn {
+  position: static;
+  margin-left: 0.3rem;
+  margin-top: 0.1rem;
+  cursor: pointer;
+}
+
+.retiring-row {
+  color: #FF0000;
+}
+
+::ng-deep .award-number-input .p-inputnumber-input {
+  padding: 0rem 0rem 0.1rem 0rem !important;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem !important;
+}
+
+::ng-deep .awards-dropdown > .p-select {
+  width: 100% !important;
+}
+
+  ::ng-deep .awards-dropdown > .p-select > .p-inputtext {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+  ::ng-deep .awards-dropdown > .p-select > .p-select-panel .p-select-items .p-select-item {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+  ::ng-deep .awards-dropdown > .p-select > .p-select-panel .p-select-header .p-select-filter {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+  ::ng-deep .awards-dropdown > .p-select > .p-select-panel .p-select-items .p-select-empty-message {
+    font-size: 0.8rem !important;
+    padding: 0.1rem 0rem 0.1rem 0.5rem !important;
+  }
+
+::ng-deep .player-table-drag > .p-datatable-table-container > .p-datatable-table {
+  border-collapse: collapse !important;
+}
+
+/* ------------------------------------------------------------
+   Responsive stacking for every formation view.
+   Every four-x-x-x / five-x-x-x view arranges its player-tables
+   in .formation-row groups of three Bootstrap columns (some left
+   empty just to centre a single table on desktop). Below 768px
+   there is no true mobile breakpoint for that pattern - the three
+   columns just get squeezed. This makes them stack into one
+   column per position group instead, and drops the empty spacer
+   columns so they don't leave blank gaps once stacked. Since this
+   stylesheet is imported by every formation view component, this
+   one change applies to all of them.
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .formation-row {
+    flex-direction: column;
+  }
+
+  .formation-row > div {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .formation-row > div:empty {
+    display: none;
+    margin-bottom: 0;
+  }
+
+  /* Bigger tap targets for the add/reorder/confirm icons - fine with a
+     mouse at 12px, too small to comfortably tap on a phone. */
+  .player-table-btn,
+  .misc-table-btn {
+    font-size: 20px;
+    padding: 0.35rem;
+  }
+
+  .move-btn {
+    font-size: 20px !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   player-table card redesign (formation views only). Every class
+   below is a NEW name, deliberately not reusing any class shared
+   with misc-view (.player-table, .pos-header, .pos-row, etc. are
+   all still used by misc-view's own tables too, untouched above)
+   - misc-view keeps its original look entirely; only the numbered
+   formation position cards (GK/DF/MF/ST) get the new card styling.
+   ------------------------------------------------------------ */
+.player-card {
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+.player-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.player-card-header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.player-card-btn {
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.player-card-btn:hover {
+  color: #06110B;
+}
+
+.player-card-empty {
+  text-align: center;
+  color: #7A8079;
+  font-size: 13px;
+  padding: 14px 0;
+}
+
+.player-card-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.player-card-row:last-child {
+  border-bottom: none;
+}
+
+.player-card-pos {
+  font-size: 11px;
+  color: #9A9689;
+  width: 42px;
+  flex-shrink: 0;
+}
+
+.player-card-name {
+  font-size: 14px;
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+.player-card-rating {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9A9689;
+  border: 1px dashed #C9C9C9;
+  border-radius: 5px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
+
+.player-card-drag-row {
+  background-color: #FFFFFF !important;
+  cursor: grab;
+}
+
+.player-card-drag-row > td {
+  border-bottom: 1px solid #F0F0F0;
+  background-color: #FFFFFF !important;
+}
+
+.player-card-drag-row:last-child > td {
+  border-bottom: none;
+}
+
+.player-card-drag-handle-cell {
+  width: 40px;
+  text-align: center;
+  padding: 10px 0 10px 14px !important;
+}
+
+.player-card-drag-handle {
+  font-size: 15px;
+  color: #9A9689;
+}
+
+.player-card-drag-name-cell {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 14px !important;
+}
+
+.player-card-drag-rating-cell {
+  width: 70px;
+  text-align: center;
+  padding: 10px 14px !important;
+}
+
+::ng-deep .player-card-drag-table > .p-datatable-table-container > .p-datatable-table {
+  border-collapse: collapse !important;
+  width: 100%;
+}
+
+
+
+/* ------------------------------------------------------------
+   Dark mode for misc-view's tables (Key / On Loan / Transfer
+   Listed / Youth Squad / Pre Contract / awards). These are plain
+   HTML tables, not PrimeNG's own p-table, so - unlike the
+   pre-populate-players-modal fight earlier this session - there's
+   no framework default to beat here, just colour that was never
+   added in the first place. !important kept anyway for
+   consistency with how every other dark-mode override this
+   session has been written.
+   ------------------------------------------------------------ */
+:host-context(.app-dark) .pos-header,
+:host-context(.app-dark) .pos-header-with-icons {
+  color: #06110B !important;
+}
+
+:host-context(.app-dark) .pos-row,
+:host-context(.app-dark) .player-row,
+:host-context(.app-dark) .misc-pos-row,
+:host-context(.app-dark) .misc-player-row,
+:host-context(.app-dark) .misc-rating-row,
+:host-context(.app-dark) .award-player-row,
+:host-context(.app-dark) .key-row,
+:host-context(.app-dark) .action-row,
+:host-context(.app-dark) .player-action-row,
+:host-context(.app-dark) .empty-row {
+  background-color: #1B1F21 !important;
+  color: #EDEFEC !important;
+  border-color: #2A2E2B !important;
+}
+
+:host-context(.app-dark) .misc-table-btn {
+  color: #EDEFEC !important;
+}
+
+:host-context(.app-dark) .misc-table-btn:hover {
+  color: #07F468 !important;
+}
+
+/* The general dark-mode override above (targeting .pos-row, .player-row,
+   etc) wins over these two whenever both classes land on the same
+   element, since they're equal specificity and it comes first in the
+   file. These need to come after it and win explicitly, so Loaned In /
+   Retiring stay the same colour in both themes, as asked. */
+:host-context(.app-dark) .loaned-in-row {
+  color: #00B0F0 !important;
+}
+
+:host-context(.app-dark) .retiring-row {
+  color: #FF0000 !important;
+}

@@ -1,0 +1,52 @@
+.header {
+  text-align: center;
+}
+
+.p-button.p-button-outlined {
+  background-color: #07F468;
+  color: #000000 !important;
+}
+
+.p-button.p-button-outlined:hover {
+  background-color: #06421f;
+  color: #000000 !important;
+}
+
+.sot-btn {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 90%;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+}
+
+.sot-img {
+  height: 12rem;
+}
+
+.sot-or-part {
+  width: 2%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.sot-part-table {
+  width: 49%;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.sot-table {
+  width: 100%
+}
+
+.team-themed-btn {
+  border-width: 2px !important;
+  transition: 0.2s;
+}
+
+.team-themed-btn:hover {
+  filter: brightness(75%);
+  transition: 0.2s;
+}

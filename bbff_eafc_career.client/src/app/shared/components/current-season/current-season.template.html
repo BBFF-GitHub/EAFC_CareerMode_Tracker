@@ -1,0 +1,551 @@
+<div *ngIf="loading" class="centre-cell">
+  <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+  <b class="loading">Loading...</b>
+</div>
+
+<div *ngIf="!loading">
+  <div class="row current-season-padding">
+    <div class="current-season-header-strip">
+
+      <img *ngIf="!seasonObj.customTeam" class="header-crest" src="{{teamImg}}" alt="{{seasonObj.team}}">
+      <div *ngIf="seasonObj.customTeam" class="header-crest header-crest-placeholder"></div>
+
+      <div class="header-team-name">{{seasonObj.team}}</div>
+      <div class="header-league-year">{{seasonObj.league}} &middot; Year {{seasonObj.year}}</div>
+
+      <team-shirt [primary]="seasonObj.primaryColour" [secondary]="seasonObj.secondaryColour"
+                  [tertiary]="seasonObj.tertiaryColour" [teamName]="seasonObj.team" [size]="30"></team-shirt>
+
+      <div class="header-spacer"></div>
+
+      <i *ngIf="fromOverview" class="pi pi-arrow-circle-left header-icon-btn" pTooltip="Go back to Overview page" tooltipPosition="bottom"
+         (click)="backToHistory()"></i>
+
+      <ng-container *ngIf="!fromOverview">
+        <i class="pi pi-arrow-right-arrow-left header-icon-btn" pTooltip="Switch to International view" tooltipPosition="bottom"
+           (click)="switchToInternationalView()"></i>
+        <i class="pi pi-sign-out header-icon-btn header-icon-danger" pTooltip="Sacked / Leave Club" tooltipPosition="bottom"
+           (click)="leaveClub()"></i>
+      </ng-container>
+
+      <div class="header-divider"></div>
+
+      <span *ngIf="!pendingChanges" class="header-save-label">All changes saved</span>
+      <span *ngIf="pendingChanges && !saving" class="header-save-label">Unsaved changes</span>
+      <i *ngIf="pendingChanges && !saving" class="pi pi-save header-icon-btn header-icon-save" pTooltip="Save changes" tooltipPosition="bottom"
+         (click)="save()"></i>
+      <p-progressSpinner *ngIf="pendingChanges && saving" [style]="{width: '22px', height: '22px'}" strokeWidth="6"></p-progressSpinner>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card formation-div">
+      <div class="col flex align-items-center justify-content-center">
+        <div class="row formation-header-div">
+          <div class="row squad-visual">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <p *ngIf="seasonObj.formation == undefined || seasonObj.formation.length == 0 || seasonObj.formation == 'Select a Formation'">
+                Select Formation to view team!
+              </p>
+              <five-four-one-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '5-4-1'" [squad]="seasonObj.squad"
+                                  [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></five-four-one-view>
+              <four-four-one-one-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '4-4-1-1'" [squad]="seasonObj.squad"
+                                      [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-four-one-one-view>
+              <four-four-two-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '4-4-2'" [squad]="seasonObj.squad"
+                                  [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-four-two-view>
+              <four-five-one-view *ngIf="seasonObj.formation != undefined && (seasonObj.formation == '4-5-1 Attack' || seasonObj.formation == '4-5-1 Defend')"
+                                  [squad]="seasonObj.squad" [attack]="seasonObj.formation == '4-5-1 Attack'" [fromOverview]="fromOverview"
+                                  (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-five-one-view>
+              <four-one-four-one-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '4-1-4-1'" [squad]="seasonObj.squad"
+                                      [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-one-four-one-view>
+              <four-one-three-two-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '4-1-3-2'" [squad]="seasonObj.squad"
+                                      [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-one-three-two-view>
+              <four-one-two-one-two-view *ngIf="seasonObj.formation != undefined && (seasonObj.formation == '4-1-2-1-2 Narrow' || seasonObj.formation == '4-1-2-1-2 Wide')"
+                                         [squad]="seasonObj.squad" [wide]="seasonObj.formation == '4-1-2-1-2 Wide'" [fromOverview]="fromOverview"
+                                         (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-one-two-one-two-view>
+              <four-three-three-view *ngIf="seasonObj.formation != undefined && (seasonObj.formation.indexOf('4-3-3') > -1)"
+                                     [squad]="seasonObj.squad" [mode]="seasonObj.formation != undefined ? seasonObj.formation : ''" [fromOverview]="fromOverview"
+                                     (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-three-three-view>
+              <four-two-four-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '4-2-4'" [squad]="seasonObj.squad"
+                                      [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-two-four-view>
+              <four-two-three-one-view *ngIf="seasonObj.formation != undefined && seasonObj.formation == '4-2-3-1'" [squad]="seasonObj.squad"
+                                       [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (reorderEmit)="confirmReorder($event)"></four-two-three-one-view>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card rest-of-page-div">
+      <div class="col flex align-items-center justify-content-center">
+        <div class="row">
+          <p-tabs [value]="activeTab" (valueChange)="changeTab($event)">
+            <p-tablist>
+              <p-tab [value]="0">Squad Management</p-tab>
+              <p-tab [value]="1">Squad List View</p-tab>
+              <p-tab [value]="2">Stats View</p-tab>
+              <p-tab [value]="3">Fixtures List View</p-tab>
+              <p-tab *ngIf="startNewSeason" [value]="4">{{fromOverview ? 'Season Results' : 'Close Season'}}</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel [value]="1">
+                <p-contextMenu #cm [model]="menuItems" (onShow)="populateMenuListForPlayer()" (onHide)="populateFullMenuList()"></p-contextMenu>
+                <div class="squad-list-view-div" #squadListDiv>
+                  <p-table [value]="seasonObj.squad" [paginator]="true" [rows]="squadListRows" [(contextMenuSelection)]="selectedPlayer"
+                           [contextMenu]="fromOverview ? null : cm" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                      <tr class="smaller-text">
+                        <th colspan="2" class="centre-cell">
+                          Player
+                          <i *ngIf=!fromOverview class="fa-solid fa-circle-info info-btn" pTooltip="Right-click on a player to perform actions"
+                             tooltipPosition="right"></i>
+                        </th>
+                        <th class="centre-cell">Position</th>
+                        <th></th>
+                        <th class="centre-cell">Caps</th>
+                        <th class="centre-cell">Goals</th>
+                        <th class="centre-cell">Rating</th>
+                        <th class="centre-cell" pTooltip="Man of the Match points this season - top 4 rated players per game score 5/3/2/1">MOTM Pts</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-player>
+                      <tr class="smaller-text" [style.backgroundColor]="selectedPlayer == player && menuShowing ? '#EEEEEE' : '#FFFFFF'" [pContextMenuRow]="player">
+                        <td class="squad-list-img-path-cell">
+                          <p-avatar image="{{player.imagePath}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                        </td>
+                        <td class="squad-list-player-cell">{{player.player}}</td>
+                        <td class="squad-list-position-cell">
+                          <p-tag styleClass="mr-2" value="{{player.position}}" [severity]="player.accentSeverity" [rounded]="true"></p-tag>
+                        </td>
+                        <td class="squad-list-status-cell">
+                          <p-tag *ngIf="player.loanedIn" styleClass="mr-2" value="Loaned In" severity="info"></p-tag>
+                          <p-tag *ngIf="player.loanedOut" styleClass="mr-2" value="Loaned Out" severity="info"></p-tag>
+                          <p-tag *ngIf="player.transferListed" styleClass="mr-2" value="Transfer Listed" severity="danger"></p-tag>
+                          <p-tag *ngIf="player.loanListed" styleClass="mr-2" value="Loan Listed" severity="danger"></p-tag>
+                          <p-tag *ngIf="player.remove" styleClass="mr-2" value="Leaving" severity="danger"></p-tag>
+                          <p-tag *ngIf="player.youthSquad" styleClass="mr-2" value="Youth Squad" severity="success"></p-tag>
+                          <p-tag *ngIf="player.preContract" styleClass="mr-2" value="Joins next season" severity="warn"></p-tag>
+                          <p-tag *ngIf="player.preContractOut" styleClass="mr-2" value="Leaves next season" severity="warn"></p-tag>
+                          <p-tag *ngIf="player.retiring" styleClass="mr-2" value="Retiring" severity="warn"></p-tag>
+                        </td>
+                        <td class="squad-list-player-stat-cell">{{player.caps}}</td>
+                        <td class="squad-list-player-stat-cell">{{player.goals}}</td>
+                        <td class="squad-list-actions-cell">
+                          <span *ngIf="player.ratingDisplay == undefined || player.ratingDisplay == 0">-</span>
+                          <span *ngIf="player.ratingDisplay !== undefined && player.ratingDisplay > 0">{{player.ratingDisplay}}</span>
+                        </td>
+                        <td class="squad-list-actions-cell">{{player.motmPoints ?? 0}}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel [value]="2">
+                <div class="stats-view-div">
+                  <p-table [value]="leagueStats" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                      <tr class="smaller-text">
+                        <th colspan="8" class="centre-cell">League Stats</th>
+                      </tr>
+                      <tr class="smaller-text">
+                        <th class="stats-view-cell">GP</th>
+                        <th class="stats-view-cell">W</th>
+                        <th class="stats-view-cell">D</th>
+                        <th class="stats-view-cell">L</th>
+                        <th class="stats-view-cell">GF</th>
+                        <th class="stats-view-cell">GA</th>
+                        <th class="stats-view-cell">GD</th>
+                        <th class="stats-view-cell">Pts</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body">
+                      <tr class="smaller-text stats-view-table-data">
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.gamesPlayed}}</td>
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.wins}}</td>
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.draws}}</td>
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.losses}}</td>
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.goalsScored}}</td>
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.goalsAgainst}}</td>
+                        <td class="stats-view-cell">
+                          <span *ngIf="seasonObj.leagueStats.goalDifference > 0">+</span>
+                          {{seasonObj.leagueStats.goalDifference}}
+                        </td>
+                        <td class="stats-view-cell">{{seasonObj.leagueStats.points}}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                  <hr />
+                  <div class="row">
+                    <div class="league-table-border">
+                      <div class="stats-view-side-div">
+                        <p-table [value]="seasonObj.seasonCups" styleClass="p-datatable-sm">
+                          <ng-template pTemplate="header">
+                            <tr class="smaller-text">
+                              <th colspan="2" class="centre-cell">Cup Progress</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-cup>
+                            <tr class="smaller-text stats-view-table-data">
+                              <td class="cup-progress-name">{{cup.cupName}}</td>
+                              <td *ngIf="fromOverview" class="cup-progress-input">
+                                {{cup.cupProgress}}
+                              </td>
+                              <td *ngIf="!fromOverview" class="cup-progress-input">
+                                <input *ngIf="cup.out !== undefined && cup.out" type="text" pInputText [(ngModel)]="cup.cupProgress"
+                                       (keyup)="setPendingChanges('cup')" />
+                                <span *ngIf="cup.out == undefined || !cup.out">{{cup.cupProgress}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                        <ng-container *ngIf="topScorers.length > 0">
+                          <hr />
+                          <p-table [value]="topScorers" styleClass="p-datatable-sm">
+                            <ng-template pTemplate="header">
+                              <tr class="smaller-text">
+                                <th colspan="3" class="centre-cell">Top Scorers</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-player let-i="rowIndex">
+                              <tr class="smaller-text stats-view-table-data">
+                                <td class="top-scorer-index-cell">#{{i + 1}}</td>
+                                <td class="top-scorer-player-cell">{{player.player}}</td>
+                                <td class="top-scorer-goals-cell">{{player.goals}}</td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="league-progress-div">
+                      <div class="stats-view-side-div">
+                        <p-table [value]="seasonObj.leaguePos" styleClass="p-datatable-sm">
+                          <ng-template pTemplate="header">
+                            <tr class="smaller-text">
+                              <th class="league-progress-cell">GW</th>
+                              <th class="league-progress-cell">Pos</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-pos let-index="rowIndex">
+                            <tr class="smaller-text stats-view-table-data">
+                              <td class="league-progress-cell">G{{pos.gameWeek}}</td>
+                              <td *ngIf="fromOverview" class="league-progress-cell">
+                                {{pos.position}}
+                              </td>
+                              <td *ngIf="!fromOverview" class="league-progress-cell">
+                                <p-inputnumber *ngIf="pos.position == undefined || seasonObj.leagueStats.gamesPlayed == index + 1" class="league-pos-input"
+                                               inputId="integeronly" [(ngModel)]="pos.position" [min]="0" (onInput)="setPendingChanges('pos')"></p-inputnumber>
+                                <span *ngIf="pos.position != undefined && seasonObj.leagueStats.gamesPlayed != index + 1">{{pos.position}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel [value]="3">
+                <div class="fixtures-list-div">
+                  <p-table [value]="seasonObj.fixtures" styleClass="p-datatable-sm" (onRowReorder)="reorderFixtures()">
+                    <ng-template pTemplate="header">
+                      <tr class="smaller-text">
+                        <th class="fixtures-list-header">
+                          <i *ngIf="!fromOverview" class="pi pi-plus-circle add-fixture-btn smaller-text" pTooltip="Add new fixture" (click)="addFixture()"></i>
+                        </th>
+                        <th class="fixtures-list-header">#</th>
+                        <th class="fixtures-list-competition-cell">Competition</th>
+                        <th class="fixtures-list-venue-cell">Venue</th>
+                        <th class="fixtures-list-vs-cell">vs</th>
+                        <th colspan="3" class="fixtures-list-results-cell">Result</th>
+                        <th class="fixtures-list-scores-cell">Scorers</th>
+                        <th></th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-fixture let-index="rowIndex">
+                      <tr [pReorderableRow]="index" class="smaller-text fixtures-list-table-data">
+                        <td class="fixtures-list-move-cell">
+                          <i *ngIf="(fixture.result == undefined || fixture.result.length == 0) && !fixture.remove" pReorderableRowHandle
+                             class="pi pi-arrows-alt move-btn"></i>
+                        </td>
+                        <td class="fixtures-list-cell">{{index + 1}}</td>
+                        <td class="fixtures-list-competition-cell">
+                          <select *ngIf="fixture.added" class="fixture-select-dropdown" [(ngModel)]="fixture.competition" (change)="editFixture(fixture)">
+                            <option *ngFor="let c of fixture.competitions" [ngValue]="c">{{c}}</option>
+                          </select>
+                          <span *ngIf="!fixture.added">{{fixture.competition}}</span>
+                        </td>
+                        <td class="fixtures-list-venue-cell">
+                          <select *ngIf="fixture.result == undefined || fixture.result.length == 0" class="fixture-select-dropdown" [(ngModel)]="fixture.venue"
+                                  (change)="editFixture(fixture)">
+                            <option *ngFor="let v of venues" [ngValue]="v">{{v}}</option>
+                          </select>
+                          <span *ngIf="fixture.result != undefined && fixture.result.length > 0">{{fixture.venue}}</span>
+                        </td>
+                        <td class="fixtures-list-vs-cell">
+                          <p-select *ngIf="fixture.result == undefined || fixture.result.length == 0" class="fixture-dropdown"
+                                    [options]="fixture.teams" [(ngModel)]="fixture.versusTeamObj" [filter]="true" optionLabel="team"
+                                    (onChange)="checkVersusTeam(fixture)"></p-select>
+                          <span *ngIf="fixture.result != undefined && fixture.result.length > 0">{{fixture.versusTeam}}</span>
+                        </td>
+
+                        <!-- ADD FLAG HERE -->
+                        <ng-container *ngIf="(fixture.result == undefined || fixture.result.length == 0) && fixture.showBin">
+                          <td class="fixtures-list-scores-cell">
+                            <i *ngIf="!fixture.playGame" class="fa-solid fa-gamepad not-playable-game" pTooltip="Click to set game as Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                            <i *ngIf="fixture.playGame" class="fa-solid fa-gamepad playable-game" pTooltip="Click to unset game from Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                          </td>
+                          <td class="generate-results-cell" colspan="2">
+                            <span *ngIf="fixture.versusTeam == undefined || fixture.versusTeam.length == 0 || nextGameIndex != fixture.id">-</span>
+                            <span *ngIf="fixture.versusTeam != undefined && fixture.versusTeam.length > 0 && nextGameIndex == fixture.id"
+                                  class="generate-results-cursor" (click)="generateResults(fixture)">Generate Results</span>
+                          </td>
+                          <td class="fixtures-list-venue-cell">
+                            <i class="fa-solid fa-trash delete-fixture-btn" pTooltip="Click to delete the fixture" tooltipPosition="right"
+                               (click)="removeFixture(fixture)"></i>
+                          </td>
+                        </ng-container>
+                        <ng-container *ngIf="(fixture.result == undefined || fixture.result.length == 0) && !fixture.showBin">
+                          <td class="fixtures-list-scores-cell">
+                            <i *ngIf="!fixture.playGame" class="fa-solid fa-gamepad not-playable-game" pTooltip="Click to set game as Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                            <i *ngIf="fixture.playGame" class="fa-solid fa-gamepad playable-game" pTooltip="Click to unset game from Playable" tooltipPosition="right"
+                               (click)="fixture.playGame = !fixture.playGame; editFixture(fixture);"></i>
+                          </td>
+                          <td class="generate-results-cell-again" colspan="3">
+                            <span *ngIf="fixture.versusTeam == undefined || fixture.versusTeam.length == 0 || nextGameIndex != fixture.id">-</span>
+                            <span *ngIf="fixture.versusTeam != undefined && fixture.versusTeam.length > 0 && nextGameIndex == fixture.id"
+                                  class="generate-results-cursor" (click)="generateResults(fixture)">Generate Results</span>
+                          </td>
+                        </ng-container>
+
+                        <ng-container *ngIf="fixture.result != undefined && fixture.result.length > 0">
+                          <td class="fixtures-list-scores-cell">{{fixture.result}}</td>
+                          <td class="fixtures-list-scores-cell">{{fixture.ourScore}}</td>
+                          <td class="fixtures-list-scores-cell">{{fixture.versusScore}}</td>
+                          <td class="fixtures-list-scores-cell">
+                            <i *ngIf="fixture.scorers.length > 0" class="fa-solid fa-futbol" pTooltip="{{getScorers(fixture)}}" tooltipPosition="left" [escape]="false"></i>
+                          </td>
+                        </ng-container>
+                        <td></td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel *ngIf="startNewSeason" [value]="4">
+                <div class="fixtures-list-div">
+                  <p-table [value]="endOfSeasonLeagueTable" styleClass="p-datatable-sm" (onRowReorder)="reorderFixtures()">
+                    <ng-template pTemplate="header">
+                      <tr class="smaller-text">
+                        <th [attr.colspan]="endOfSeasonLeagueTable[0].draggableOrder ? 12 : 11" class="centre-cell">League Standings</th>
+                      </tr>
+                      <tr class="smaller-text">
+                        <ng-container *ngIf="endOfSeasonLeagueTable[0].draggableOrder">
+                          <th class="fixtures-list-cell"></th>
+                          <th class="fixtures-list-cell">#</th>
+                        </ng-container>
+                        <ng-container *ngIf="!endOfSeasonLeagueTable[0].draggableOrder">
+                          <th class="fixtures-list-draggable-cell">#</th>
+                        </ng-container>
+                        <th colspan="2" class="eos-team-cell">Team</th>
+                        <th class="eos-stat-cell">GP</th>
+                        <th class="eos-stat-cell">W</th>
+                        <th class="eos-stat-cell">D</th>
+                        <th class="eos-stat-cell">L</th>
+                        <th class="eos-stat-cell">GF</th>
+                        <th class="eos-stat-cell">GA</th>
+                        <th class="eos-stat-cell">GD</th>
+                        <th class="eos-stat-cell">Pts</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-team let-index="rowIndex">
+                      <tr [pReorderableRow]="index" class="close-season-row smaller-text">
+                        <ng-container *ngIf="endOfSeasonLeagueTable[0].draggableOrder">
+                          <th class="fixtures-list-cell">
+                            <i pReorderableRowHandle class="pi pi-arrows-alt"></i>
+                          </th>
+                          <th class="fixtures-list-cell">{{index + 1}}</th>
+                        </ng-container>
+                        <ng-container *ngIf="!endOfSeasonLeagueTable[0].draggableOrder">
+                          <td class="fixtures-list-draggable-cell">{{index + 1}}</td>
+                        </ng-container>
+                        <td class="fixtures-list-cell">
+                          <img class="eos-team-image" src="{{team.teamImagePath}}" alt="{{team.teamName}}">
+                        </td>
+                        <td class="league-table-team-card" style="{{team.teamCssStyles}}" [style.width]="'28%'">{{team.teamName}}</td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.editable">
+                            <p-inputnumber class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="team.gamesPlayed"
+                                           [min]="0" [max]="46" (onBlur)="tidyUpLeagueStandings(team.id, 'GP', team.draggableOrder)"></p-inputnumber>
+                          </span>
+                          <span *ngIf="!team.editable">{{team.gamesPlayed}}</span>
+                        </td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.editable">
+                            <p-inputnumber class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="team.wins"
+                                           [min]="0" [max]="seasonObj.leagueStats.gamesPlayed" (onBlur)="tidyUpLeagueStandings(team.id, 'W', team.draggableOrder)"></p-inputnumber>
+                          </span>
+                          <span *ngIf="!team.editable">{{team.wins}}</span>
+                        </td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.editable">
+                            <p-inputnumber class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="team.draws"
+                                           [min]="0" [max]="seasonObj.leagueStats.gamesPlayed" (onBlur)="tidyUpLeagueStandings(team.id, 'D', team.draggableOrder)"></p-inputnumber>
+                          </span>
+                          <span *ngIf="!team.editable">{{team.draws}}</span>
+                        </td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.draggableOrder && team.editable">
+                            <p-inputnumber class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="team.losses"
+                                           [min]="0" [max]="seasonObj.leagueStats.gamesPlayed" (onBlur)="tidyUpLeagueStandings(team.id, 'L', team.draggableOrder)"></p-inputnumber>
+                          </span>
+                          <span *ngIf="!team.draggableOrder || !team.editable">{{team.losses}}</span>
+                        </td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.editable">
+                            <p-inputnumber class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="team.goalsScored"
+                                           [min]="0" (onBlur)="tidyUpLeagueStandings(team.id, 'GF', team.draggableOrder)"></p-inputnumber>
+                          </span>
+                          <span *ngIf="!team.editable">{{team.goalsScored}}</span>
+                        </td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.editable">
+                            <p-inputnumber class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="team.goalsAgainst"
+                                           [min]="0" (onBlur)="tidyUpLeagueStandings(team.id, 'GA', team.draggableOrder)"></p-inputnumber>
+                          </span>
+                          <span *ngIf="!team.editable">{{team.goalsAgainst}}</span>
+                        </td>
+                        <td class="eos-stat-cell">
+                          <span *ngIf="team.goalDifference > 0">+</span>
+                          {{team.goalDifference}}
+                        </td>
+                        <td class="eos-stat-cell">{{team.points}}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                  <hr />
+                  <table *ngFor="let cup of endOfSeasonCupsTable" class="eos-cup-table">
+                    <tr class="eos-cup-final-cell">
+                      <th colspan="7" class="centre-cell">{{cup.cupFinal}}</th>
+                    </tr>
+                    <tr class="eos-cup-teams-row">
+                      <td class="eos-cup-team-cell">
+                        <img class="eos-cup-team-image" src="{{cup.homeTeamImg}}" alt="{{cup.homeTeam}}">
+                      </td>
+
+                      <td *ngIf="!cup.editable && cup.homeTeamStyle !== undefined && cup.homeTeamStyle.length > 0" style="{{cup.homeTeamStyle}}" [style.width]="'35%'">
+                        <div class="results-team-card-left">{{cup.homeTeam}}</div>
+                      </td>
+                      <td *ngIf="!cup.editable && (cup.homeTeamStyle == undefined || cup.homeTeamStyle?.length == 0)" class="eos-cup-team-editable-cell">
+                        <div class="results-team-card-left">{{cup.homeTeam}}</div>
+                      </td>
+                      <td *ngIf="cup.editable" class="eos-cup-team-editable-cell">
+                        <p-select *ngIf="cup.teams !== undefined" class="fixture-dropdown" [options]="cup.teams" [(ngModel)]="cup.homeTeamObj" [filter]="true"
+                                  optionLabel="team" (onChange)="checkCupTeam(cup, true)"></p-select>
+                      </td>
+
+                      <td class="eos-cup-team-cell">
+                        <span *ngIf="!cup.editable">{{cup.homeScore}}{{(cup.penaltyWinner == "Home" ? "p" : "")}}</span>
+                        <p-inputnumber *ngIf="cup.editable" class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="cup.homeScore" [min]="0"></p-inputnumber>
+                      </td>
+                      <td class="fixtures-list-cell">vs</td>
+                      <td class="eos-cup-team-cell">
+                        <span *ngIf="!cup.editable">{{cup.awayScore}}{{(cup.penaltyWinner == "Away" ? "p" : "")}}</span>
+                        <p-inputnumber *ngIf="cup.editable" class="league-table-number-input" inputId="integeronly" autocomplete="off" [(ngModel)]="cup.awayScore" [min]="0"></p-inputnumber>
+                      </td>
+
+                      <td *ngIf="!cup.editable && cup.awayTeamStyle !== undefined && cup.awayTeamStyle.length > 0" style="{{cup.awayTeamStyle}}" [style.width]="'35%'">
+                        <div class="results-team-card-right">{{cup.awayTeam}}</div>
+                      </td>
+                      <td *ngIf="!cup.editable && (cup.awayTeamStyle == undefined || cup.awayTeamStyle?.length == 0)" class="eos-cup-team-editable-cell">
+                        <div class="results-team-card-right">{{cup.awayTeam}}</div>
+                      </td>
+                      <td *ngIf="cup.editable" class="eos-cup-team-editable-cell">
+                        <p-select *ngIf="cup.teams !== undefined" class="fixture-dropdown" [options]="cup.teams" [(ngModel)]="cup.awayTeamObj" [filter]="true"
+                                  optionLabel="team" (onChange)="checkCupTeam(cup, false)"></p-select>
+                      </td>
+
+                      <td class="eos-cup-team-cell">
+                        <img class="eos-cup-team-image" src="{{cup.awayTeamImg}}" alt="{{cup.awayTeam}}">
+                      </td>
+                    </tr>
+                    <tr *ngIf="cup.homeScore == cup.awayScore && cup.editable">
+                      <td class="eos-cup-score-blank-cell"></td>
+                      <td colspan="2" class="eos-cup-score-radio-home-btn">
+                        <div class="field-checkbox">
+                          <p-radioButton name="penaltyWin" value="Home" [(ngModel)]="cup.penaltyWinner"></p-radioButton>
+                          <label class="eos-cup-score-penalty-cell">Wins on Penalties</label>
+                        </div>
+                      </td>
+                      <td class="fixtures-list-move-cell"></td>
+                      <td colspan="2" class="eos-cup-score-radio-away-btn">
+                        <div class="field-checkbox">
+                          <p-radioButton name="penaltyWin" value="Away" [(ngModel)]="cup.penaltyWinner"></p-radioButton>
+                          <label class="eos-cup-score-penalty-cell">Wins on Penalties</label>
+                        </div>
+                      </td>
+                      <td class="eos-cup-score-blank-cell"></td>
+                    </tr>
+                  </table>
+                  <ng-container *ngIf="!fromOverview">
+                    <hr />
+                  </ng-container>
+                  <table *ngIf="!fromOverview" class="advance-career-table">
+                    <tr>
+                      <td class="advance-career-table-cell">
+                        <p-button type="button" label="End Season" class="eos-btn p-button-outlined" [disabled]="!enableEOSBtn" (click)="endSeason()"></p-button>
+                      </td>
+                      <td class="advance-career-table-cell">
+                        <p-button type="button" label="Start New Season" class="eos-btn p-button-outlined" [disabled]="!enableSNSBtn" (click)="startBrandNewSeason()"></p-button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel [value]="0">
+                <div class="squad-mgmt-formation-div">
+                  <b class="formation-dropdown">Formation:</b>
+                  <ng-container *ngIf="fromOverview">
+                    <span class="formation-dropdown">{{seasonObj.formation}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="!fromOverview">
+                    <p-select [options]="formations" [(ngModel)]="seasonObj.formation" [filter]="true" (onChange)="setPositionsList()"></p-select>
+                  </ng-container>
+                </div>
+                <misc-view [squad]="seasonObj.squad" [seasonAwards]="seasonObj.seasonAwards" [finishedSeason]="endOfSeason"
+                           [fromOverview]="fromOverview" (addPlayerEmit)="addNewPlayer($event)" (awardChangeEmit)="setPendingChanges('awards')"></misc-view>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="{{modalHeader}}" [(visible)]="showModal" [modal]="true"
+          [style]="{width: modalMode == 'change-position-modal' ? '65vw' : (modalMode == 'generate-result-modal' ? '80vw' : '50vw'), 'max-height': modalMode == 'generate-result-modal' ? '95%' : (modalMode == 'change-position-modal' ? '85vh' : '90%')}"
+          [draggable]="false" [resizable]="false">
+  <add-new-player-modal *ngIf="modalMode == 'add-new-player-modal'" [setting]="modalParam" [order]="modalOrder" [positions]="positions"
+                        (savePlayerEmit)="confirmNewPlayer($event)"></add-new-player-modal>
+  <authentic-club-modal *ngIf="modalMode == 'authentic-club-modal'" [midSeasonMove]="midSeasonMove"
+                        [departureReason]="midSeasonDepartureReason" [presetGender]="seasonObj.female"></authentic-club-modal>
+  <mid-season-departure-modal *ngIf="modalMode == 'mid-season-departure-modal'" [currentTeamName]="seasonObj.team"
+                              (departureReasonEmit)="chooseDepartureReason($event)"></mid-season-departure-modal>
+  <change-position-modal *ngIf="modalMode == 'change-position-modal'" [playerToChange]="modalParam" [positions]="positions"
+                         (changePlayerEmit)="confirmPosChange($event)"></change-position-modal>
+  <generate-result-modal *ngIf="modalMode == 'generate-result-modal'" [fixtureInit]="modalParam" [squad]="seasonObj.squad" [formation]="seasonObj.formation ?? ''"
+                         [ourTeam]="seasonObj.team" [ourTeamCss]="seasonObj.teamCSSStyles ?? ''" (resultEmit)="confirmResult($event)"></generate-result-modal>
+  <loan-to-permanent-modal *ngIf="modalMode == 'loan-to-permanent-modal'" [player]="modalParam?.player" (permanentEmit)="confirmLoadToPermanentMove($event)"></loan-to-permanent-modal>
+  <pre-populate-players-modal *ngIf="modalMode == 'pre-populate-players-modal'" [countryCode]="seasonObj.countryCode" [teamName]="seasonObj.team"
+                              [female]="seasonObj.female ?? false" (playerListEmit)="confirmPrePopulation($event)"></pre-populate-players-modal>
+  <remove-player-modal *ngIf="modalMode == 'remove-player-modal'" [playerToRemove]="modalParam?.player" [setting]="modalParam?.setting"
+                       (removePlayerEmit)="confirmRemovePlayer($event)"></remove-player-modal>
+  <stay-at-club-modal *ngIf="modalMode == 'stay-at-club-modal'" [currentTeamName]="seasonObj.team" [currentTeamCountryCode]="seasonObj.countryCode"
+                      [currentTeamPrimary]="seasonObj.primaryColour" [currentTeamSecondary]="seasonObj.secondaryColour"
+                      [currentTeamTertiary]="seasonObj.tertiaryColour"></stay-at-club-modal>
+  <stick-or-twist-modal *ngIf="modalMode == 'stick-or-twist-modal'" [currentTeamName]="seasonObj.team" [currentTeamImg]="teamImg"
+                        [currentTeamStyle]="seasonObj.teamCSSStyles ?? ''" (stickOrTwistEmit)="prepForNewSeason($event)"></stick-or-twist-modal>
+</p-dialog>

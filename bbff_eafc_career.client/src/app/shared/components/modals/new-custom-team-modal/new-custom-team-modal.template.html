@@ -1,0 +1,190 @@
+<div class="wizard-shell">
+  <wizard-steps [steps]="['Gender', 'Details', 'Country', 'League', 'Cups', 'Confirm']" [currentStep]="stage"></wizard-steps>
+
+  <!-- Part 1 - Men's or Women's -->
+  <div *ngIf="stage == 1" class="wizard-stage">
+    <h2 class="wizard-title">Men's or women's team?</h2>
+
+    <div class="gender-cards">
+      <button type="button" class="gender-card" (click)="chooseGender(false)">
+        <div class="gender-card-title">Men's</div>
+      </button>
+      <button type="button" class="gender-card" (click)="chooseGender(true)">
+        <div class="gender-card-title">Women's</div>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-txt">
+    <p-progressSpinner [style]="{width: '45px', height: '45px', 'margin-left': '-0.5rem', 'margin-top': '0.5rem'}" strokeWidth="6"></p-progressSpinner>
+    <b class="loading">Loading...</b>
+  </div>
+
+  <ng-container *ngIf="!loading && stage > 1">
+    <!-- Part 2 - Team Details -->
+    <div *ngIf="stage == 2" class="wizard-stage">
+      <h2 class="wizard-title">Build your club</h2>
+
+      <div class="details-field">
+        <div class="details-label">Team Name</div>
+        <div class="details-input-wrap">
+          <input class="details-input" [class.ng-invalid]="!validName" [class.ng-dirty]="!validName" type="text" pInputText
+                 maxlength="37" [(ngModel)]="teamName" (keyup)="validateTeamName()" />
+          <small *ngIf="!validName" class="p-error block">Team Name is not valid! Please change...</small>
+        </div>
+      </div>
+
+      <div class="details-field">
+        <div class="details-label">Primary Colour</div>
+        <p-colorpicker class="colour-swatch" [(ngModel)]="primaryColour" />
+      </div>
+
+      <div class="details-field">
+        <div class="details-label">Secondary Colour</div>
+        <p-colorpicker class="colour-swatch" [(ngModel)]="secondaryColour" />
+      </div>
+
+      <div class="details-field">
+        <div class="details-label">Tertiary Colour</div>
+        <p-colorpicker class="colour-swatch" [(ngModel)]="tertiaryColour" />
+      </div>
+
+      <div class="kit-preview">
+        <team-shirt [primary]="primaryColour" [secondary]="secondaryColour" [tertiary]="tertiaryColour"
+                    [teamName]="teamName" [size]="70"></team-shirt>
+        <div>
+          <div class="kit-preview-name" *ngIf="teamName !== undefined && teamName.length > 0">{{teamName}}</div>
+          <div class="kit-preview-name" *ngIf="teamName == undefined || teamName.length == 0">Team Name</div>
+          <div class="kit-preview-sub">Kit preview</div>
+        </div>
+      </div>
+
+      <div class="wizard-actions">
+        <div class="wizard-actions-right wizard-actions-full">
+          <button type="button" class="wizard-btn wizard-btn-primary" [disabled]="!validName" (click)="nextStep(2)">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 3 - Select Country -->
+    <div *ngIf="stage == 3" class="wizard-stage">
+      <h2 class="wizard-title">Select your country</h2>
+
+      <div class="picker-row">
+        <button type="button" class="picker-arrow" aria-label="Previous country" (click)="moveCountry(-1)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="picker-card">
+          <img *ngIf="selectedCountry !== undefined" class="picker-flag" src="./assets/flags/{{selectedCountry.countryCode}}_flag.jpg" alt="{{selectedCountry.country}}">
+        </div>
+
+        <button type="button" class="picker-arrow" aria-label="Next country" (click)="moveCountry(1)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <p-select class="picker-select" [options]="countries" [(ngModel)]="selectedCountry" [filter]="true" optionLabel="country"></p-select>
+
+      <div class="wizard-actions">
+        <div class="wizard-actions-right wizard-actions-full">
+          <button type="button" class="wizard-btn wizard-btn-secondary" (click)="previousStep(3)">Back</button>
+          <button type="button" class="wizard-btn wizard-btn-primary" [disabled]="selectedCountry == undefined" (click)="nextStep(3)">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 4 - Select League -->
+    <div *ngIf="stage == 4" class="wizard-stage">
+      <h2 class="wizard-title">Select your league</h2>
+
+      <div class="picker-row">
+        <button *ngIf="filteredLeagues.length > 1" type="button" class="picker-arrow" aria-label="Previous league" (click)="moveLeague(-1)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="picker-card">
+          <img *ngIf="selectedLeague !== undefined" class="picker-logo" src="{{selectedLeague.imgPath}}" alt="{{selectedLeague.league}}">
+          <div *ngIf="selectedLeague !== undefined" class="picker-team-name">{{selectedLeague.league}}</div>
+        </div>
+
+        <button *ngIf="filteredLeagues.length > 1" type="button" class="picker-arrow" aria-label="Next league" (click)="moveLeague(1)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <p-select *ngIf="filteredLeagues.length > 1" class="picker-select" [options]="filteredLeagues" [(ngModel)]="selectedLeague" [filter]="true" optionLabel="league"></p-select>
+
+      <div class="wizard-actions">
+        <div class="wizard-actions-right wizard-actions-full">
+          <button type="button" class="wizard-btn wizard-btn-secondary" (click)="previousStep(4)">Back</button>
+          <button type="button" class="wizard-btn wizard-btn-primary" [disabled]="selectedLeague == undefined" (click)="nextStep(4)">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 5 - Select Cup Competitions -->
+    <div *ngIf="stage == 5" class="wizard-stage">
+      <h2 class="wizard-title">Which cup competitions?</h2>
+
+      <div class="cup-columns">
+        <div class="cup-column">
+          <div class="cup-column-label">Included</div>
+          <div class="cup-row cup-row-included" *ngFor="let cup of compulsoryCups">
+            <i class="fa-solid fa-check cup-check"></i>
+            <span>{{cup.cupName}}</span>
+          </div>
+        </div>
+        <div class="cup-column">
+          <div class="cup-column-label">Optional</div>
+          <label class="cup-row cup-row-optional" *ngFor="let cup of optionalCups">
+            <p-checkbox [value]="cup" [(ngModel)]="selectedOptionalCups" [inputId]="cup.cupName" (onChange)="validateCupSelection()"></p-checkbox>
+            <span>{{cup.cupName}}</span>
+          </label>
+        </div>
+      </div>
+
+      <p-message *ngIf="!validCupSelection" severity="error" text="Invalid Optional Cup selections!" class="cup-error"></p-message>
+
+      <div class="wizard-actions">
+        <div class="wizard-actions-right wizard-actions-full">
+          <button type="button" class="wizard-btn wizard-btn-secondary" (click)="previousStep(5)">Back</button>
+          <button type="button" class="wizard-btn wizard-btn-primary" [disabled]="!validCupSelection" (click)="nextStep(5)">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 6 - Confirm Choices -->
+    <div *ngIf="stage == 6" class="wizard-stage">
+      <h2 class="wizard-title">Ready to go?</h2>
+
+      <div class="confirm-summary">
+        <team-shirt [primary]="primaryColour" [secondary]="secondaryColour" [tertiary]="tertiaryColour" [teamName]="teamName" [size]="72"></team-shirt>
+        <div class="confirm-summary-rows">
+          <div class="confirm-row"><span class="confirm-label">Country</span><span class="confirm-value">{{selectedCountry.country}}</span></div>
+          <div class="confirm-row"><span class="confirm-label">Team</span><span class="confirm-value">{{teamName}}</span></div>
+          <div class="confirm-row"><span class="confirm-label">League</span><span class="confirm-value">{{selectedLeague.league}}</span></div>
+        </div>
+      </div>
+
+      <div class="cup-columns">
+        <div class="cup-column">
+          <div class="cup-column-label">Compulsory Cups</div>
+          <div class="confirm-cup" *ngFor="let cup of compulsoryCups">{{cup.cupName}}</div>
+        </div>
+        <div class="cup-column">
+          <div class="cup-column-label">Optional Cups</div>
+          <div class="confirm-cup" *ngFor="let cup of selectedOptionalCups">{{cup.cupName}}</div>
+          <div class="confirm-cup confirm-cup-muted" *ngIf="selectedOptionalCups.length == 0">N/A</div>
+        </div>
+      </div>
+
+      <div class="wizard-actions">
+        <div class="wizard-actions-right wizard-actions-full">
+          <button type="button" class="wizard-btn wizard-btn-secondary" (click)="previousStep(6)">Back</button>
+          <button type="button" class="wizard-btn wizard-btn-primary" (click)="finishSelection()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

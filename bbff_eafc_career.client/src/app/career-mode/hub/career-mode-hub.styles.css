@@ -1,0 +1,165 @@
+.custom-marker {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.loading {
+  margin-top: 0.4rem;
+  margin-left: 2rem;
+  font-size: 3.5rem;
+}
+
+.loading-div {
+  text-align: center;
+}
+
+.new-career-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  padding: 48px 24px;
+  font-family: 'Kanit', sans-serif;
+}
+
+.new-career-heading {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.new-career-badge {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #06421F;
+}
+
+.new-career-title {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #14201A;
+}
+
+.new-career-cards {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.new-career-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 32px;
+  background: #FFFFFF;
+  border: 1px solid #DCDACF;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(20, 32, 26, 0.06);
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.new-career-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(20, 32, 26, 0.10);
+  border-color: #06421F;
+}
+
+.new-career-icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #E8F3EC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-career-card-title {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #14201A;
+}
+
+.new-career-card-text {
+  font-size: 14px;
+  color: #5B655F;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.new-career-select {
+  margin-top: 6px;
+  padding: 8px 22px;
+  border-radius: 8px;
+  background: #06421F;
+  color: #FFFFFF;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .new-career-cards {
+    flex-direction: column;
+  }
+
+  .new-career-title {
+    font-size: 26px;
+  }
+}
+
+:host-context(.app-dark) .new-career-title {
+  color:#EDEFEC !important;
+}
+
+:host-context(.app-dark) .new-career-badge {
+  color:#07F468 !important;
+}
+
+:host-context(.app-dark) .new-career-card {
+  background:#1B1F21 !important;
+  border-color:#2A2E2B !important;
+}
+
+:host-context(.app-dark) .new-career-card:hover {
+  border-color:#07F468 !important;
+}
+
+:host-context(.app-dark) .new-career-icon {
+  background:#0F2818 !important;
+}
+
+:host-context(.app-dark) .new-career-icon svg {
+  stroke:#07F468 !important;
+}
+
+:host-context(.app-dark) .new-career-card-title {
+  color:#EDEFEC !important;
+}
+
+:host-context(.app-dark) .new-career-card-text {
+  color:#9AA39C !important;
+}
+
+:host-context(.app-dark) .new-career-select {
+  background:#07F468 !important;
+  color:#06110B !important;
+}

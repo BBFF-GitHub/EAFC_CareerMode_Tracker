@@ -1,0 +1,11 @@
+<div class="card flex justify-content-center dashboard-tile">
+  <div class="tile-div-team">
+    <p class="tile-header" [ngClass]="small ? 'tile-header-team-small' : 'tile-header-team'">{{title}}</p>
+    <div class="logo-div">
+      <img class="logo-img" src="{{team.teamImagePath}}" alt="{{team.team}}">
+    </div>
+    <div class="value-div">
+      <h4 class="tile-team-total">{{getValue()}}</h4>
+    </div>
+  </div>
+</div>
